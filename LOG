@@ -1,0 +1,185 @@
+Wednesday 8 March  18:15:36 AEST 2017
+=====================================
+OK, I spent a fair bit of time today write the script + template
+files so that I can automate the production of the uucp systems.
+I'll upload this all to Github and add instructions there.
+
+Tuesday 7 March  21:02:45 AEST 2017
+===================================
+I just created a uunet and I've set things up so that:
+
+munnari (calls) ===> seismo (calls) ===> uunet
+
+with uucp and sendmail configs so that each knows who they are directly
+connected to. I can do this:
+
+munnari# echo hello | mail seismo\!uunet\!root
+
+and the e-mail turns up on uunet. I can also reply to this e-mail and it
+returns back to munnari. I'm very happy!
+
+The next things to do are:
+- make the disk image smaller so I can have more of them
+- write a topology table and a script that generates a system-specific
+  .dsk and .ini file, so that I can run them all and send e-mail from
+  anywhere to anywhere.
+
+Tuesday 7 March  20:16:44 AEST 2017
+===================================
+I changed munnari.oz to munnari in /etc/rc.local and in the uucp/sendmail
+config, and now I can reply to e-mails from munnari.
+
+Files In/Out of a System
+------------------------
+On the Linux side: $ bsdtar cf - [files] | mktape /dev/stdin > munnari.tap
+On the BSD side:
+$ ctrl-E
+sim> det ts
+sim> att ts munnari.tap
+sim > c
+munnari# mt rew
+munnari# tar vtf /dev/rmt12
+
+
+Tuesday 7 March  19:01:45 AEST 2017
+===================================
+mail now sort of works. On seismo, I had to put in an L.sys entry
+to describe munnari:
+munnari Never DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
+
+I had to run make mkdirs (see RCS/mkdirs) to make the right uucp dirs on
+each system.
+
+Then sendmail. I used cad.mc, edited the top to say, e.g.
+# internet hostname
+Cwseismo
+
+# UUCP name
+DUseismo
+CUseismo
+
+# UUCP hosts that we talk to
+CWmunnari
+
+(and the reverse for munnari), and made cad.cf, then changed to sendmail.cf
+and copied the two cf files over to the systems.
+
+Tuesday 7 March  16:51:51 AEST 2017 - wkt
+=========================================
+uucp now works. Run
+$ vax780 seismo.ini		in one window and
+$ vax780 munnari.ini		in another window
+
+Both systems have root with no password. On munnari, I have in L-devices:
+DIR tty00 unused 9600 direct
+
+and in L.sys:
+seismo Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
+
+and in /etc/ttys:
+08tty00
+
+The SimH configs for the two devices are:
+# (munnari) Set up eight DZ serial ports in 8-bit mode.
+# Connect line 0 to localhost port 8888.
+# Connect the remaining lines to listen on port 8890.
+set dz lines=8
+set dz 8b
+attach dz line=0,Connect=localhost:8888
+att dz -m 8890
+
+# (seismo) Set up eight DZ serial ports in 8-bit mode.
+# Connect all lines to listen on port 8888.
+set dz lines=8
+set dz 8b
+att dz -m 8888
+
+As root on munnari, I can do:
+# /usr/lib/uucp/uucico -r1 -sseismo -x7
+
+and I see this conversation
+
+munnari.oz# /usr/lib/uucp/uucico -r1 -sseismo -x7
+uucp seismo (3/6-8:04-132) DEBUG (ENABLED)
+finds called
+getto called
+call: no. tty00 for sys seismo
+Using DIR to call
+login called
+wanted "" got that
+send ""
+wanted ogin: \012\015\012Connected to the VAX 11/780 simulator DZ device, line 1\015\012\012\015\012\015\0124.2 BSD UNIX (seismo)\015\012\015\015\012\015login:got that
+send uucp
+wanted ssword:  uucp\015\012Password:got that
+send uucp
+uucp seismo (3/6-8:04-132) SUCCEEDED (call to seismo )
+imsg >\015\012\020<
+Shere\000imsg >\020<
+ROK\000msg-ROK
+ Rmtname seismo, Role MASTER,  Ifn - 5, Loginuser - uucp
+rmesg - 'P' imsg >\020<
+Pg\000got Pg
+wmesg 'U'g
+send 73
+rec h->cntl 73
+send 61
+state - 1
+rec h->cntl 61
+send 53
+state - 3
+rec h->cntl 53
+state - 10
+Proto started g
+protocol g
+uucp seismo (3/6-8:04-132) OK (startup)
+*** TOP ***  -  role=1, wmesg 'H'
+send 37777777610
+rmesg - 'H' rec h->cntl 41
+state - 10
+rec h->cntl 37777777611
+send 41
+got HY
+ PROCESS: msg - HY
+HUP:
+wmesg 'H'Y
+send 37777777621
+send 10
+send 10
+cntrl - 0
+uucp seismo (3/6-8:04-132) OK (conversation complete)
+send OO 0,imsg >\020<
+\011\010*"\011\020\002!l\022]HY\000imsg >\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\020<
+\011"*\010\011\020\011"*\010\011\020OOOOOO\000imsg >\020<
+OOOOOO\000exit code 0
+
+That's as far as I've got. 4.2BSD runs sendmail, and I haven't worked out
+how to configure sendmail yet. I tried to uucp but that didn't work, so
+there is more to do.
+
+Tuesday 7 March  08:07:21 AEST 2017
+===================================
+I now have two 4.2 images, seismo and munnari. I can boot both, and tip
+from munnari to seismo. Now I need to work out how to do uucp!
+
+Mon Mar  6 20:40:53 AEST 2017
+=============================
+As per gunkies:
+http://gunkies.org/wiki/Installing_4.2_BSD_on_SIMH
+But I can't get the CPU to idle.
+
+Here is how to set /dev/tty00 to connect out to another system:
+attach dz Line=0,Connect=localhost:8888
+
+I used this to connect to myself (same 4.3BSD system) using tip. I
+had to edit /etc/ttys and disable getty on /dev/tty00. The I had to edit
+/etc/remote and set dialer up to be /dev/tty00 at speed 9600.
+
+We can also set aside two lines, but keep the other six for incoming logins:
+# Set up eight DZ serial ports in 7-bit mode.
+# Connect line 0 to line 1 on port 8889.
+# Connect the remaining lines on port 8888.
+set dz lines=8
+set dz 7b
+att dz -m line=1,8889
+attach dz line=0,Connect=localhost:8889
+att dz -m 8888
