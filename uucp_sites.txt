@@ -34,7 +34,7 @@ TCP Hostname/port: as yet unknown
 Connects-to: mips
 
 Site: ucbvax
-Contact: Cory Smelosky and/or John Floren
+Contact: Cory Smelosky
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
 
@@ -47,3 +47,14 @@ Site: research
 Contact: Norman Wilson
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
+
+Site: lanl-a
+Contact: John Floren
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
+
+Site: unmvax
+Contact: John Floren
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
+
