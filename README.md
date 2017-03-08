@@ -4,6 +4,10 @@ SimH disk image so that it acts as a uucp node and connects to other uucp
 nodes via TCP links.
 
 ## Installation
+You will need the *bsdtar* program installed so that tarballs compatible with 4.2BSD
+can be installed. On Ubuntu, `sudo apt-get install bsdtar`. Can someone add
+instructions for other systems? The source for bsdtar is at http://www.libarchive.org/
+
 Download the SimH Github repository at https://github.com/simh/simh.
 In your local copy, build a vax780 SimH binary and copy the resulting binary
 somewhere useful:
