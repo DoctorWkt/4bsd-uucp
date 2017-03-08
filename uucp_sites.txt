@@ -5,12 +5,12 @@ Connects-to: as yet unknown
 
 Site: munnari
 Contact: Warren Toomey
-TCP Hostname/port: as yet unknown
+TCP Hostname/port: simh.tuhs.org:6000
 Connects-to: seismo
 
 Site: seismo
 Contact: Warren Toomey
-TCP Hostname/port: as yet unknown
+TCP Hostname/port: simh.tuhs.org:5000
 Connects-to: munnari, something else I hope
 
 Site: gatech
