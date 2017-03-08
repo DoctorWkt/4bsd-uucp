@@ -197,6 +197,16 @@ Hello there
 &
 ```
 
+# Notes and Gotchas
+If you telnet into one of your sites, you will see garbage instead of
+a nice `login:` prompt. This is because I had to set the DZ simulated
+lines in 8-bit mode, as this is needed by uucp. However, type in `root`
+and Return and you will log in.
+
+We need to find a way in SimH to set the uucp lines in 8-bit mode but the
+getty lines in 7-bit mode. Alternatively, in 4.2BSD, to set no parity on
+the getty lines. Anybody have any ideas on this?
+
 # What Next?
 
 This all got thrown together in a couple of days, so feel free to
