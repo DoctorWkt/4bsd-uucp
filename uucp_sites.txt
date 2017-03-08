@@ -58,3 +58,7 @@ Contact: John Floren
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
 
+Site: kremvax
+Contact: Kurt H Maier
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
