@@ -42,3 +42,8 @@ Site: uwvax
 Contact: Larry McVoy
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
+
+Site: research
+Contact: Norman Wilson
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
