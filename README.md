@@ -10,7 +10,7 @@ somewhere useful:
 
 ```sh
 make vax780
-sudo cp BIN/bax780 /usr/local/bin
+sudo cp BIN/vax780 /usr/local/bin
 ```
 
 Download this Github repository. In this repository, compile the mktape
@@ -49,8 +49,8 @@ This means that each site can initiate a connection to another site; they
 don't have to wait for the other site to dial in.
 
 For each site, there are two files generated:
-* siteX.ini is the SimH config file to run this system
-* siteX.tap is a tarball in *tap* format with the customisations
+* `siteX.ini` is the SimH config file to run this system
+* `siteX.tap` is a tarball in *tap* format with the customisations
 
 We also need to copy the generic disk image `rq.dsk.gz` to be the disk
 for each site:
@@ -73,7 +73,7 @@ how you customise the system. Boot up the system:
 vax780 site5.ini
 ```
 
-At the `login:` prompt, login as root with no password. At the shell prompt,
+At the `login:` prompt, login as *root* with no password. At the shell prompt,
 read in and unpack the tarball, and run a script which sets appropriate
 file permissions:
 
@@ -93,7 +93,7 @@ mkdir: XTMP: File exists
 Now logout and login again
 ```
 
-Logout (ctrl-D) and login as root. Your system now has a hostname:
+Logout (ctrl-D) and login as *root*. Your system now has a hostname:
 
 ```sh
 login: root
@@ -200,7 +200,7 @@ Hello there
 # What Next?
 
 This all got thrown together in a couple of days, so feel free to
-make suggestions on improvements. The next thing is to get C-News
-and a newsreader working on these systems, and get a bunch of people
+make suggestions or improvements. The next thing is to get C-News
+and a newsreader working on these systems. Then, to get a bunch of people
 to host simulated uucp sites so that we can recreate a semblance of
 the uucp network that existed in the 1980s.
