@@ -1,0 +1,130 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Data::Dumper;
+#
+# Create a 4.2BSD SimH image of a system which is set up to make uucp
+# connections and pass mail to other 4.2BSD SimH systems.
+#
+# Usage: buildimg hostname:ourport remote1:server:port remote2:server:port ...
+#
+# Example: buildimg seismo:6345 mcvax:11.23.45.66:9000  ucbvax:www.fred.com:1800
+#
+# We will run our image of seismo on our machine on TCP port 6345.
+# There is another uucp node called mcvax on machine 11.23.45.66 port 9000
+# There is another uucp node called ucbvax on machine www.fred.com port 1800
+#
+# The script will build a tarball with changes to the generic SimH image,
+# boot the SimH image. The SimH image will import the tarball and run a
+# script to apply any final changes, e.g. file ownerships and permissions.
+
+if (@ARGV < 1) {
+  die("Usage: $0 hostname:ourport remote1:server:port remote2:server:port ...\n");
+}
+
+# Get our uucp hostname and the set of remote uucp machines
+my @remotename;
+my @remoteserver;
+my ($hostname,$hostport)=split(/:/, shift(@ARGV));
+my $remotecount= scalar(@ARGV);
+
+foreach my $i (@ARGV) {
+  my ($j, $k)= split(/:/, $i, 2);
+  push(@remotename, $j);
+  push(@remoteserver, $k);
+}
+
+# Remove any previous filesystem
+system("rm -rf etc usr mkdirs");
+
+# Make the additional filesystem areas
+system("mkdir -p etc usr/lib/uucp usr/spool/uucp usr/spool/uucp/C. " .
+	"usr/spool/uucp/XTMP " .
+	"usr/spool/uucp/D.$hostname" . "X usr/spool/uucp/D.$hostname " .
+	"usr/spool/uucp/D. usr/spool/uucp/X. usr/spool/uucp/TM.");
+
+# Personalise the hostname and overwrite the rc.local
+system("echo $hostname > etc/hostname");
+system("cp template/rc.local etc/rc.local");
+
+# Create the ttys file
+open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
+print($OUT "14console\n");
+foreach my $i (0 .. 7) {
+  if ($i < $remotecount) {
+    print($OUT "08tty0$i\n");
+  } else {
+    print($OUT "18tty0$i\n");
+  }
+}
+close($OUT);
+
+# Copy over the L-devices and the password file
+system("cp template/L-devices usr/lib/uucp");
+system("cp template/passwd etc/passwd");
+
+# Generate the L.sys file
+open($OUT, ">", "usr/lib/uucp/L.sys") || die("usr/lib/uucp/L.sys: $!");
+my $i=0;
+foreach my $r (@remotename) {
+  print($OUT "$r Any;9 DIR 9600 tty0$i \"\" \"\" " .
+		"ogin:--ogin:--ogin: uucp ssword: uucp\n"); $i++;
+}
+close($OUT);
+
+# Generate the uucp sendmail.cf
+open($OUT, ">", "usr/lib/sendmail.cf") || die("usr/lib/sendmail.cf: $!");
+print($OUT "# UUCP hostname\n");
+print($OUT "Cw$hostname\n");
+print($OUT "DU$hostname\n");
+print($OUT "CU$hostname\n\n");
+print($OUT "# UUCP hosts that we talk to\n");
+foreach my $r (@remotename) {
+  print($OUT "CW$r\n");
+}
+print($OUT "\n");
+close($OUT);
+system("cat template/sendmail.cf >> usr/lib/sendmail.cf");
+system("cp template/mkdirs mkdirs");
+
+# Build the tap image
+system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs etc usr | ./mktape /dev/stdin > $hostname.tap");
+system("rm -rf etc usr mkdirs");
+
+# Generate the system's SimH config file
+open($OUT, ">", "$hostname.ini") || die("$hostname.ini: $!");
+
+print($OUT "# Set up eight DZ serial ports in 8-bit mode.\n");
+print($OUT "# Connect some lines to remote servers\n");
+print($OUT "# Connect the remaining lines to listen on port $hostport\n");
+print($OUT "set dz lines=8\n");
+print($OUT "set dz 8b\n");
+$i=0;
+foreach my $server (@remoteserver) {
+  print($OUT "attach dz line=$i,Connect=$server\n"); $i++;
+}
+print($OUT "att dz -m $hostport\n");
+
+print $OUT <<"HERE";
+set rq0 ra81
+att rq0 $hostname.dsk
+att ts $hostname.tap
+set rq1 dis
+set rq2 dis
+set rq3 dis
+set rp dis
+set lpt dis
+set rl dis
+set tq dis
+set tu dis
+set tti 7b
+set tto 7b
+load -o boot42 0
+d r10 9
+d r11 0
+set cpu idle=4.2BSD
+run 2
+HERE
+
+close($OUT);
+exit(0);
