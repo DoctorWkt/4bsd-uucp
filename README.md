@@ -211,23 +211,46 @@ that you connection to. Here is an example line that connects to *site6* every m
 
 # Testing against an External System
 I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to try sending
-e-mail to this system, here is what you can do.
-
-In your SimH .ini file, put (or change) this line to say:
+e-mail to this system, here is what you can do. In your SimH .ini file, put (or change)
+this line to say:
 
 ```sh
 attach dz line=0,Connect=simh.tuhs.org:5000
 ```
 
 which will connect */dev/tty00* to *simh.tuhs.org* port 5000. Then in your simulated 4.2BSD
-system, set up your */usr/lib/uucp/L.sys* file with a line that says:
+system, edit the *dialer* line in */etc/remote* to say:
+
+```sh
+dialer:dv=/dev/tty00:br#9600:
+```
+
+Now try:
+
+```sh
+# tip dialer
+```
+
+which should connect out over */dev/tty00* to *seismo* via the TCP connection.
+Hit Return a few times to see if there is any response. On your host system,
+do `netstat -a | grep ESTAB` and see if there is a TCP connection to
+*simh.tuhs.org:5000*. To get out of tip, type in the two characters `~.`
+
+To send mail to *seismo!root*, you need to do a few extra things. Set up your
+*/usr/lib/uucp/L.sys* file with a line that says:
 
 ```sh
 seismo Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
 ```
 
-so that the uucp site *seismo* can be contacted via */dev/tty00*. Then you
-can try doing:
+so that the uucp site *seismo* can be contacted via */dev/tty00*. Edit your
+*/usr/lib/sendmail.cf* with an extra line that identifies *seismo* as a remote site:
+
+```sh
+CWseismo                 (near the other CW lines)
+```
+
+Then you can try doing:
 
 ```sh
 # echo hello there | mail seismo\!root
