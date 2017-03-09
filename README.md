@@ -209,6 +209,34 @@ that you connection to. Here is an example line that connects to *site6* every m
 * * * * * /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
+# Testing against an External System
+I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to try sending
+e-mail to this system, here is what you can do.
+
+In yur SimH .ini file, put (or change)this line to say:
+
+```sh
+attach dz line=0,Connect=simh.tuhs.org:5000
+```
+
+which will connect */dev/tty00* to *simh.tuhs.org* port 5000. Then in your simulated 4.2BSD
+system, set up your */usr/lib/uucp/L.sys* file with a line that says:
+
+```sh
+seismo Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
+```
+
+so that the uucp site *seismo* can be contacted via */dev/tty00*. Then you
+can try doing:
+
+```sh
+# echo hello there | mail seismo\!root
+  <wait a few seconds>
+# /usr/lib/uucp/uucico -r1 -sseismo -x7
+```
+
+and you should see the debug information with parts of the uucp conversation.
+
 # Notes and Gotchas
 If you telnet into one of your sites, you will see garbage instead of
 a nice `login:` prompt. This is because I had to set the DZ simulated
