@@ -62,3 +62,8 @@ Site: kremvax
 Contact: Kurt H Maier
 TCP Hostname/port: wopr.sciops.net:5000
 Connects-to: as yet unknown
+
+Site: columbia
+Contact: Dan Cross
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
