@@ -213,7 +213,7 @@ that you connection to. Here is an example line that connects to *site6* every m
 I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to try sending
 e-mail to this system, here is what you can do.
 
-In yur SimH .ini file, put (or change)this line to say:
+In your SimH .ini file, put (or change) this line to say:
 
 ```sh
 attach dz line=0,Connect=simh.tuhs.org:5000
