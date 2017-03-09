@@ -1,0 +1,79 @@
+# This script follows the examples in README.md as much as possible
+# It is optimised to work with Travis CI, see also the .travis.yml file
+
+function check {
+  echo -ne "$*\t"
+}
+
+function ok {
+  echo -e "[ \e[38;5;32msuccess\e[0m ]"
+}
+
+function nok {
+  echo -e "[ \e[38;5;31mfailure\e[0m ]"
+}
+
+function warn {
+  echo -e "[ \e[38;5;33mwarning\e[0m ]"
+}
+
+function format {
+  awk -F'\t' '{ printf "%-60s %s\n",$1,$2 }'
+}
+
+export wd=$(pwd)
+export simh_url=https://github.com/simh/simh/archive/master.tar.gz
+export simh_cmd=simh-master/BIN/vax780
+
+cat >test.ini <<__HERE
+set env hostname=%1
+EXPECT "login: " SEND AFTER=500000,DELAY=500000 "root\r" ;GO
+EXPECT "# " SEND "tar xf /dev/rmt12\r" ;GO
+EXPECT "# " SEND "./mkdirs\r" ;GO
+EXPECT "# " SEND "logout\rroot\r" ;GO
+
+EXPECT "site5#" SEND "echo Hello there \x7C mail site6\x5C\x21site7\x5C\x21root \x3B sleep 60 \x3B /usr/lib/uucp/uucico -r1 -ssite6 -x7 \x3B shutdown -h now\r" ;GO
+EXPECT "site5#" QUIT
+
+EXPECT "site6#" SEND "sleep 120 \x3B /usr/lib/uucp/uucico -r1 -ssite7 -x7 \x3B shutdown -h now\r" ;GO
+EXPECT "site6#" QUIT
+
+EXPECT "site7#" SEND "sleep 180 \x3B cat /usr/spool/mail/root \x3B shutdown -h now\r" ;GO
+EXPECT "site7#" QUIT
+
+do %1.ini
+__HERE
+
+(
+check bsdtar;                          bsdtar -h                                        >/dev/null 2>&1 && ok || nok
+check compiling mktape;                cc -o mktape mktape.c                            >/dev/null 2>&1 && ok || nok
+check stripping mktape;                strip mktape                                     >/dev/null 2>&1 && ok || nok
+check generate sites;                  bash site_generate                               >/dev/null 2>&1 && ok || nok
+check site5 tape;                      ls -l site5.tap                                  >/dev/null 2>&1 && ok || nok
+check site5 ini;                       ls -l site5.ini                                  >/dev/null 2>&1 && ok || nok
+check site5 disk;                      ls -l site5.dsk                                  >/dev/null 2>&1 && ok || nok
+check site6 tape;                      ls -l site5.tap                                  >/dev/null 2>&1 && ok || nok
+check site6 ini;                       ls -l site5.ini                                  >/dev/null 2>&1 && ok || nok
+check site6 disk;                      ls -l site5.dsk                                  >/dev/null 2>&1 && ok || nok
+check site7 tape;                      ls -l site5.tap                                  >/dev/null 2>&1 && ok || nok
+check site7 ini;                       ls -l site5.ini                                  >/dev/null 2>&1 && ok || nok
+check site7 disk;                      ls -l site5.dsk                                  >/dev/null 2>&1 && ok || nok
+check fetch simh sources;              wget -q -O - ${simh_url}| gunzip -c | tar -xf -  >/dev/null 2>&1 && ok || nok
+check compile vax780 emulator;         cd simh-master && make vax780                    >/dev/null 2>&1 && ok || nok
+check strip vax780 emulator;           cd ${wd} && strip simh-master/BIN/vax780         >/dev/null 2>&1 && ok || nok
+
+# ready to run
+nohup ${simh_cmd} test.ini site5 </dev/null >site5.log 2>&1 &
+nohup ${simh_cmd} test.ini site6 </dev/null >site6.log 2>&1 &
+
+check reading mail on site7;           ${simh_cmd} test.ini site7 </dev/null \
+                                         |tee site7.log \
+                                         |grep "Hello there"                            >/dev/null 2>&1 && ok || nok
+)|format
+
+# print the logs
+for host in 5 6 7; do
+  echo ; echo +++++++++++++++++ ${host} log +++++++++++++++++
+  echo ; cat site${host}.log
+done
+grep -q "Hello there" site7.log && exit 0 || exit 1

@@ -1,0 +1,9 @@
+sudo: required
+dist: trusty
+addons:
+  apt:
+    packages:
+    - bsdtar
+language: bash
+script:
+  - tests/example
