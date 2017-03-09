@@ -14,7 +14,7 @@ TCP Hostname/port: simh.tuhs.org:5000
 Connects-to: munnari, something else I hope
 
 Site: gatech
-Contact: Arnold Skeeve
+Contact: Arnold Robbins
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
 
