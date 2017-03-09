@@ -20,7 +20,7 @@ Connects-to: as yet unknown
 
 Site: nocrew
 Contact: Lars Brinkhoff
-TCP Hostname/port: molnjunk.nocrew.org:unknown
+TCP Hostname/port: molnjunk.nocrew.org:540
 Connects-to: as yet unknown
 
 Site: utzoo
