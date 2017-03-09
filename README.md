@@ -3,7 +3,7 @@ This is a script and a set of template files which customises a generic 4.2BSD
 SimH disk image so that it acts as a uucp node and connects to other uucp
 nodes via TCP links.
 
-## Installation
+# Installation
 You will need the *bsdtar* program installed so that tarballs compatible with 4.2BSD
 can be installed. On Ubuntu, `sudo apt-get install bsdtar`. Can someone add
 instructions for other systems? The source for bsdtar is at http://www.libarchive.org/
@@ -109,7 +109,7 @@ site5#
 
 Repeat the process for the other sites, e.g. *site6* and *site7*.
 
-## Sending E-mail
+# Sending E-mail
 
 On *site5* you can send e-mail to `site6!root` and `site6!site7!root`.
 Watch out for escaping the bang characters as the shell is *csh*, e.g.
@@ -121,7 +121,7 @@ echo Hello there | mail site6\!site7\!root
 You should be able to work out the bangpaths to send e-mails on the other
 systems.
 
-## Performing UUCP Connections
+# Performing UUCP Connections
 
 Right now, I haven't set up any cron jobs to periodically make uucp
 connections, so here is how to perform a manual uucp connection.
@@ -199,6 +199,14 @@ Status: R
 Hello there
 
 &
+```
+
+# Automating uucp Connections
+You can edit `/usr/lib/crontab` to have entries that run uucico for each site
+that you connection to. Here is an example line that connects to *site6* every minute:
+
+```sh
+* * * * * /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
 # Notes and Gotchas
