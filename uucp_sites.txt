@@ -60,5 +60,5 @@ Connects-to: as yet unknown
 
 Site: kremvax
 Contact: Kurt H Maier
-TCP Hostname/port: as yet unknown
+TCP Hostname/port: wopr.sciops.net:5000
 Connects-to: as yet unknown
