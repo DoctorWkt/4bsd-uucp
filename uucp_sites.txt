@@ -50,13 +50,13 @@ Connects-to: as yet unknown
 
 Site: lanl-a
 Contact: John Floren
-TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+TCP Hostname/port: uucp.jfloren.net:6666
+Connects-to: unmvax
 
 Site: unmvax
 Contact: John Floren
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: lanl-a
 
 Site: kremvax
 Contact: Kurt H Maier
