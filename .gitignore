@@ -1,5 +1,6 @@
 mktape
 *.dsk
+*.dsk.gz
 *.ini
 *.tap
 mktape

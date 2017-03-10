@@ -54,12 +54,12 @@ system("cp template/dotlogin .login");
 
 # Create the ttys file
 open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
-print($OUT "console \"/etc/getty Console-1200\" unknown       on secure\n");
+print($OUT "console \"/etc/getty Console-1200\" unknown  on  secure\n");
 foreach my $i (0 .. 7) {
   if ($i < $remotecount) {
-    print($OUT "tty0$i \"/etc/getty std.9600\"   unknown         off secure\n");
+    print($OUT "tty0$i \"/etc/getty std.9600\"   unknown off insecure\n");
   } else {
-    print($OUT "tty0$i \"/etc/getty std.9600\"   unknown         on secure\n");
+    print($OUT "tty0$i \"/etc/getty std.9600\"   unknown on  insecure\n");
   }
 }
 close($OUT);
