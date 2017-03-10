@@ -39,13 +39,18 @@ system("rm -rf etc usr mkdirs");
 
 # Make the additional filesystem areas
 system("mkdir -p etc usr/lib/uucp usr/spool/uucp usr/spool/uucp/C. " .
-	"usr/spool/uucp/XTMP " .
+	"usr/spool/uucp/XTMP usr/man/manl usr/local/bin " .
 	"usr/spool/uucp/D.$hostname" . "X usr/spool/uucp/D.$hostname " .
 	"usr/spool/uucp/D. usr/spool/uucp/X. usr/spool/uucp/TM.");
 
 # Personalise the hostname and overwrite the rc.local
 system("echo $hostname > etc/hostname");
 system("cp template/rc.local etc/rc.local");
+
+# Copy some binaries over
+system("cp template/wish template/less usr/local/bin");
+system("cp template/wish.l template/less.l usr/man/manl");
+system("cp template/dotlogin .login");
 
 # Create the ttys file
 open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
@@ -88,8 +93,8 @@ system("cat template/sendmail.cf >> usr/lib/sendmail.cf");
 system("cp template/mkdirs mkdirs");
 
 # Build the tap image
-system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs etc usr | ./mktape /dev/stdin > $hostname.tap");
-system("rm -rf etc usr mkdirs");
+system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs .login etc usr | ./mktape /dev/stdin > $hostname.tap");
+system("rm -rf .login etc usr mkdirs");
 
 # Generate the system's SimH config file
 open($OUT, ">", "$hostname.ini") || die("$hostname.ini: $!");
