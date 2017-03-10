@@ -278,7 +278,7 @@ specific IP addresses.
 
 The tty lines are set as insecure in the 4.3BSD `/etc/ttys`, so they won't
 allow root logins. You can only login as root on the console, i.e. the place
-where you ran `vax780 system,ini`. It is a good idea to add a non-root user
+where you ran `vax780 system.ini`. It is a good idea to add a non-root user
 so that you can telnet in on the TCP port: *only do this on localhost, as
 the telnet session is not encrypted*. If you add this non-root user to the
 group *wheel* (in `/etc/group`), then you can `su` and become root.
