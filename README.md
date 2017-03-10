@@ -1,12 +1,13 @@
 # 4bsd-uucp
-This is a script and a set of template files which customises a generic 4.2BSD
+This is a script and a set of template files which customises a generic 4.3BSD
 SimH disk image so that it acts as a uucp node and connects to other uucp
 nodes via TCP links.
 
 # Installation
-You will need the *bsdtar* program installed so that tarballs compatible with 4.2BSD
-can be installed. On Ubuntu, `sudo apt-get install bsdtar`. Can someone add
-instructions for other systems? The source for bsdtar is at http://www.libarchive.org/
+You will need the *bsdtar* program installed so that tarballs compatible with
+4.3BSD can be installed. On Ubuntu, `sudo apt-get install bsdtar`. Can someone
+add instructions for other systems? The source for bsdtar is at
+http://www.libarchive.org/
 
 Download the SimH Github repository at https://github.com/simh/simh.
 In your local copy, build a vax780 SimH binary and copy the resulting binary
@@ -24,7 +25,7 @@ program:
 cc -o mktape mktape.c
 ```
 
-You will see the generic 4.2BSD SimH image, `rq.dsk.gz`. The `buildimg`
+You will see the generic 4.3BSD SimH image, `rq.dsk.gz`. The `buildimg`
 script builds a tar for each uucp system with the specific changes for that
 system.
 
@@ -94,6 +95,7 @@ mkdir: D.: File exists
 mkdir: X.: File exists
 mkdir: TM.: File exists
 mkdir: XTMP: File exists
+29 password entries, maximum length 93
 Now logout and login again
 ```
 
@@ -108,6 +110,7 @@ site5#
 ```
 
 Repeat the process for the other sites, e.g. *site6* and *site7*.
+**SET ROOT PASSWORDS NOW!!**
 
 # Sending E-mail
 
@@ -129,39 +132,45 @@ On *site5*, to call *site6*:
 
 ```sh
 # /usr/lib/uucp/uucico -r1 -ssite6 -x7
-uucp site6 (3/7-10:58-177) DEBUG (ENABLED)
-finds called
-getto called
-call: no. tty00 for sys site6
+root site6 (3/9-06:27-166) DEBUG (Local Enabled)
+finds (site6) called
+getto: call no. tty00 for sys site6
 Using DIR to call
-...
-wanted ssword:  uucp\015\012Password:got that
-send uucp
-uucp site6 (3/7-10:58-177) SUCCEEDED (call to site6 )
-imsg >\015\012\020<
-Shere\000imsg >\020<
-ROK\000msg-ROK
-...
+Opening /dev/tty00
+login called
+wanted """"
+got: that
+. . .
+Password:got: that
+send "uucp"
+root site6 (3/9-06:27-166) SUCCEEDED (call to site6 )
+imsg looking for SYNC<
+\20>
+imsg input<Shere=site6\0>got 11 characters
+omsg <Ssite5 -Q0 -x7>
+imsg looking for SYNC<
+. . .
 Proto started g
 protocol g
-uucp site6 (3/7-10:58-177) OK (startup)
-...
-send 41
-got SY
- PROCESS: msg - SY
+root site6 (3/9-06:27-166) OK (startup tty00 9600 baud)
+*** TOP ***  -  role=MASTER
+daemon site6 (3/9-06:27-166) REQUEST (S D.site5B00D2 D.site5S00D2 daemon)
+. . .
+PROCESS: msg - SY
 SNDFILE:
-send 37777777621
-send 37777777631
-send 37777777641
-rec h->cntl 42
-state - 10
-send 37777777651
-rec h->cntl 43
-...
-daemon site6 (3/7-10:58-177) OK (conversation complete)
-send OO 0,imsg >\020<
-...
-exit code 0
+send 0221
+send 0231
+send 0241
+rec h->cntl 042
+state - 010
+. . .
+daemon site6 (3/9-06:27-166) OK (conversation complete)
+send OO 0,omsg <OOOOOO>
+imsg looking for SYNC<\0\0\20>
+imsg input<     \5*%\3\20>
+imsg input<     "*\10   \20>
+imsg input<     "*\10   \20>
+imsg input<OOOOOO\0>got 6 characters
 site5#
 ```
 
@@ -203,23 +212,24 @@ Hello there
 
 # Automating uucp Connections
 You can edit `/usr/lib/crontab` to have entries that run uucico for each site
-that you connection to. Here is an example line that connects to *site6* every minute:
+that you connection to. Here is an example line that connects to *site6*
+every minute:
 
 ```sh
 * * * * * /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
 # Testing against an External System
-I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to try sending
-e-mail to this system, here is what you can do. In your SimH .ini file, put (or change)
-this line to say:
+I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to
+try sending e-mail to this system, here is what you can do. In your SimH .ini
+file, put (or change) this line to say:
 
 ```sh
 attach dz line=0,Connect=simh.tuhs.org:5000
 ```
 
-which will connect */dev/tty00* to *simh.tuhs.org* port 5000. Then in your simulated 4.2BSD
-system, edit the *dialer* line in */etc/remote* to say:
+which will connect */dev/tty00* to *simh.tuhs.org* port 5000. Then in your
+simulated 4.3BSD system, edit the *dialer* line in */etc/remote* to say:
 
 ```sh
 dialer:dv=/dev/tty00:br#9600:
@@ -244,7 +254,8 @@ seismo Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
 ```
 
 so that the uucp site *seismo* can be contacted via */dev/tty00*. Edit your
-*/usr/lib/sendmail.cf* with an extra line that identifies *seismo* as a remote site:
+*/usr/lib/sendmail.cf* with an extra line that identifies *seismo* as a remote
+site:
 
 ```sh
 CWseismo                 (near the other CW lines)
@@ -267,7 +278,7 @@ lines in 8-bit mode, as this is needed by uucp. However, type in `root`
 and Return and you will log in.
 
 We need to find a way in SimH to set the uucp lines in 8-bit mode but the
-getty lines in 7-bit mode. Alternatively, in 4.2BSD, to set no parity on
+getty lines in 7-bit mode. Alternatively, in 4.3BSD, to set no parity on
 the getty lines. Anybody have any ideas on this?
 
 # What Next?

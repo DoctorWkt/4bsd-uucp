@@ -2,4 +2,5 @@ mktape
 *.dsk
 *.ini
 *.tap
+mktape
 RCS
