@@ -6,12 +6,17 @@ Connects-to: as yet unknown
 Site: munnari
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:6000
-Connects-to: seismo
+Connects-to: decvax
 
-Site: seismo
+Site: decvax
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:5000
-Connects-to: munnari, something else I hope
+Connects-to: inhp4
+
+Site: inhp4
+Contact: Warren Toomey
+TCP Hostname/port: minnie.tuhs.org:5000
+Connects-to: nothing as yet
 
 Site: gatech
 Contact: Arnold Robbins
