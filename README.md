@@ -271,6 +271,18 @@ Then you can try doing:
 
 and you should see the debug information with parts of the uucp conversation.
 
+# Security
+The *tty* lines are exposed to the Internet through the bound TCP port, so
+you may want to implement some firewall rules to only allow connections from
+specific IP addresses.
+
+The tty lines are set as insecure in the 4.3BSD `/etc/ttys`, so they won't
+allow root logins. You can only login as root on the console, i.e. the place
+where you ran `vax780 system,ini`. It is a good idea to add a non-root user
+so that you can telnet in on the TCP port: *only do this on localhost, as
+the telnet session is not encrypted*. If you add this non-root user to the
+group *wheel* (in `/etc/group`), then you can `su` and become root.
+
 # Notes and Gotchas
 If you telnet into one of your sites, you will see garbage instead of
 a nice `login:` prompt. This is because I had to set the DZ simulated
