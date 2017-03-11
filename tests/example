@@ -22,15 +22,17 @@ function format {
 }
 
 export wd=$(pwd)
+gmake -v >/dev/null 2>&1 && export MAKE=gmake || export MAKE=make
 export simh_url=https://github.com/simh/simh/archive/master.tar.gz
 export simh_cmd=simh-master/BIN/vax780
 
-cat >test.ini <<__HERE
+cat >test.ini <<"__HERE"
 set env hostname=%1
-EXPECT "login: " SEND AFTER=500000,DELAY=500000 "root\r" ;GO
+
+EXPECT -r -p "[^ ]login: " SEND AFTER=500000,DELAY=500000 "root\r" ;GO
 EXPECT "# " SEND "tar xf /dev/rmt12\r" ;GO
 EXPECT "# " SEND "./mkdirs\r" ;GO
-EXPECT "# " SEND "logout\rroot\r" ;GO
+EXPECT "# " SEND "logout\r" ;GO
 
 EXPECT "site5#" SEND "echo Hello there \x7C mail site6\x5C\x21site7\x5C\x21root \x3B sleep 60 \x3B /usr/lib/uucp/uucico -r1 -ssite6 -x7 \x3B shutdown -h now\r" ;GO
 EXPECT "site5#" QUIT
@@ -41,7 +43,11 @@ EXPECT "site6#" QUIT
 EXPECT "site7#" SEND "sleep 180 \x3B cat /usr/spool/mail/root \x3B shutdown -h now\r" ;GO
 EXPECT "site7#" QUIT
 
-do %1.ini
+do %hostname%.ini
+load -o boot42 0
+d r10 9
+d r11 0
+run 2
 __HERE
 
 (
@@ -60,7 +66,7 @@ check site7 ini;                       ls -l site5.ini                          
 check site7 disk;                      ls -l site5.dsk                                  >/dev/null 2>&1 && ok || nok
 check fetch simh sources;              wget -q -O - ${simh_url}| gunzip -c | tar -xf -  >/dev/null 2>&1 && ok || nok
 check compile vax780 emulator;         cd simh-master && make vax780                    >/dev/null 2>&1 && ok || nok
-check strip vax780 emulator;           cd ${wd} && strip simh-master/BIN/vax780         >/dev/null 2>&1 && ok || nok
+check strip vax780 emulator;           cd ${wd} && strip ${simh_cmd}                    >/dev/null 2>&1 && ok || nok
 
 # ready to run
 nohup ${simh_cmd} test.ini site5 </dev/null >site5.log 2>&1 &
