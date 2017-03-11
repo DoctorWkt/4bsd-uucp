@@ -6,9 +6,9 @@
 #
 # In three windows, run vax780 site5.ini, vax780 site6.ini, vax780 site7.ini
 #
-./buildimg site5:5000 site6:localhost:6000
-./buildimg site6:6000 site5:localhost:5000 site7:localhost:7000
-./buildimg site7:7000 site6:localhost:6000
+perl ./buildimg site5:5000 site6:localhost:6000
+perl ./buildimg site6:6000 site5:localhost:5000 site7:localhost:7000
+perl ./buildimg site7:7000 site6:localhost:6000
 
 zcat rq.dsk.gz | dd conv=sparse > site5.dsk
 zcat rq.dsk.gz | dd conv=sparse > site6.dsk
