@@ -26,10 +26,10 @@ gmake -v >/dev/null 2>&1 && export MAKE=gmake || export MAKE=make
 export simh_url=https://github.com/simh/simh/archive/master.tar.gz
 export simh_cmd=simh-master/BIN/vax780
 
-cat >test.ini <<__HERE
+cat >test.ini <<"__HERE"
 set env hostname=%1
 
-EXPECT -r -p "[^ ]login: " SEND "root\r" ;GO
+EXPECT -r -p "[^ ]login: " SEND AFTER=500000,DELAY=500000 "root\r" ;GO
 EXPECT "# " SEND "tar xf /dev/rmt12\r" ;GO
 EXPECT "# " SEND "./mkdirs\r" ;GO
 EXPECT "# " SEND "logout\r" ;GO
