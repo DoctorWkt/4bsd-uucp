@@ -45,6 +45,26 @@ At the *tcpdial* end, when it sees a matching ATDT and number, it will
 make the TCP connection to the relevant Internet host and then copy the
 data between the local port and the connection to the remote host.
 
+# String Option
+Given that *tcpdial.pl* isn't a real modem, we can make it easier for humans.
+You can now do:
+
+```sh
+$ tcpdial.pl -p 4000 -n decvax:simh.tuhs.org:5000 -n ihnp4:minnie.tuhs.org:5000
+```
+
+and in *L.sys* you can have:
+
+```sh
+#System  Times  Caller  Class  Device/Phone_Number      [Expect  Send]....
+decvax Any;1 DIR 9600 tty00  "" "ATDSdecvax\r" CONNECT "" ogin:--ogin:--ogin: u
+ucp ssword: uucp
+ihnp4 Any;1 DIR 9600 tty00  "" "ATDSihnp4\r" CONNECT "" ogin:--ogin:--ogin: uu
+cp ssword: uucp
+```
+
+The *S* in *ATDS* stands for "string".
+
 # Status
 
 As at 12th March 2017, the *tcpdial.pl* program is probably still fragile
