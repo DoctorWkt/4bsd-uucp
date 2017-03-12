@@ -6,7 +6,7 @@ a local daemon, *tcpdial*, which your simulated system connects to.
 interprets this number and then makes the matching TCP connection to the
 remote uucp site.
 
-Here is an example. Let's run *tcpdial* in debug (*-d) mode, listening on
+Here is an example. Let's run *tcpdial* in debug (*-d*) mode, listening on
 localhost port 4000, with two remote systems *decvax* and *ihnp4*:
 
 ```sh
