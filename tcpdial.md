@@ -1,5 +1,5 @@
 # Running Outbound Connections to Many Sites
-If you have many outbound uucp conection, here is a solution which
+If you have many outbound uucp conections, here is a solution which
 lets you do this with only a single TCP connection. The idea is to have
 a local daemon, *tcpdial*, which your simulated system connects to. 
 *tcpdial* acts as a modem. Your system "dials" a specified number, *tcpdial*

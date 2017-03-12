@@ -77,3 +77,8 @@ Site: cbosgd
 Contact: Mary Ann Horton
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
+
+Site: lemis
+Contact: Greg Lemis
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown

@@ -139,13 +139,17 @@ sub get_dial_command {
         #print(STDERR "newdata: " . Dumper(\$newdata) );
         if ( !defined($newdata) ) { return ( undef, undef ); }
 
-        # See if we have an ATDT command and parse it
         $data = $data . $newdata;
+        #print( STDERR "data: " . Dumper( \$data ) );
+
+	# Deal with disconnections from the local SimH system
         if ( $data =~ m{Disconnected from the VAX 11/780 simulator} ) {
 	    $port->close(); return ( undef, undef );
         }
-        #print( STDERR "data: " . Dumper( \$data ) );
-        if ( $data =~ m{ATD[TP](\d+)\r} ) {
+
+        # See if we have an ATDT command and parse it.
+	# The regexp is general enough to allow, e.g. ATDSfreddo
+        if ( $data =~ m{ATD[A-Z](.*+)\r} ) {
             my $desirednum = $1;
             print( STDERR "Trying to dial $desirednum\n" );
             foreach my $n (@numberlist) {
