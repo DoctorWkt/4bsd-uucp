@@ -6,11 +6,11 @@ a local daemon, *tcpdial*, which your simulated system connects to.
 interprets this number and then makes the matching TCP connection to the
 remote uucp site.
 
-Here is an example. Let's run *tcpdial* listening on localhost port 4000,
-with two remote systems *decvax* and *ihnp4*:
+Here is an example. Let's run *tcpdial* in debug (*-d) mode, listening on
+localhost port 4000, with two remote systems *decvax* and *ihnp4*:
 
 ```sh
-$ tcpdial.pl -p 4000 -n 5551234:simh.tuhs.org:5000 -n 5556789:minnie.tuhs.org:5000
+$ tcpdial.pl -d -p 4000 -n 5551234:simh.tuhs.org:5000 -n 5556789:minnie.tuhs.org:5000
 ```
 
 *decvax* is actually simh.tuhs.org:5000, so now its phone number is 5551234.
@@ -45,6 +45,10 @@ At the *tcpdial* end, when it sees a matching ATDT and number, it will
 make the TCP connection to the relevant Internet host and then copy the
 data between the local port and the connection to the remote host.
 
+# Running as a Daemon
+If you don't use the *-d* option, *tcpdial* will run as a daemon and log
+to syslog using LOG_LOCAL0.
+
 # String Option
 Given that *tcpdial.pl* isn't a real modem, we can make it easier for humans.
 You can now do:
@@ -68,7 +72,8 @@ The *S* in *ATDS* stands for "string".
 # Status
 
 As at 12th March 2017, the *tcpdial.pl* program is probably still fragile
-and it needs some more error checking. I want to add daemon mode and
-syslogging, and better checking for when one end closes the connection.
+and it needs some more error checking. I have added a daemon mode and
+syslogging. I still think that it needs better checking for when one
+end closes the connection.
 
 Author: Warren Toomey
