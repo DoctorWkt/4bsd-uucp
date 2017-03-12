@@ -106,9 +106,9 @@ print($OUT "set dz lines=8\n");
 print($OUT "set dz 8b\n");
 $i=0;
 foreach my $server (@remoteserver) {
-  print($OUT "attach dz line=$i,Connect=$server\n"); $i++;
+  print($OUT "attach dz -m -a line=$i,Connect=$server\n"); $i++;
 }
-print($OUT "att dz -m $hostport\n");
+print($OUT "att dz -m -a $hostport\n");
 
 print $OUT <<"HERE";
 set rq0 ra81
