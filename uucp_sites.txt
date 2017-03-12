@@ -11,9 +11,9 @@ Connects-to: decvax
 Site: decvax
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:5000
-Connects-to: inhp4
+Connects-to: ihnp4
 
-Site: inhp4
+Site: ihnp4
 Contact: Warren Toomey
 TCP Hostname/port: minnie.tuhs.org:5000
 Connects-to: nothing as yet

@@ -7,14 +7,14 @@ interprets this number and then makes the matching TCP connection to the
 remote uucp site.
 
 Here is an example. Let's run *tcpdial* listening on localhost port 4000,
-with two remote systems *decvax* and *inhp4*:
+with two remote systems *decvax* and *ihnp4*:
 
 ```sh
 $ tcpdial.pl -p 4000 -n 5551234:simh.tuhs.org:5000 -n 5556789:minnie.tuhs.org:5000
 ```
 
 *decvax* is actually simh.tuhs.org:5000, so now its phone number is 5551234.
-*inhp4* is actually minnie.tuhs.org:5000, so now its phone number is 5556789.
+*ihnp4* is actually minnie.tuhs.org:5000, so now its phone number is 5556789.
 
 In the SimH .ini file, we change our outbound connections to just one
 which connects to *tcpdial*:
@@ -32,13 +32,13 @@ entries:
 #System  Times  Caller  Class  Device/Phone_Number      [Expect  Send]....
 decvax Any;1 DIR 9600 tty00  "" "ATDT5551234\r" CONNECT "" ogin:--ogin:--ogin: u
 ucp ssword: uucp
-inhp4 Any;1 DIR 9600 tty00  "" "ATDT5556789\r" CONNECT "" ogin:--ogin:--ogin: uu
+ihnp4 Any;1 DIR 9600 tty00  "" "ATDT5556789\r" CONNECT "" ogin:--ogin:--ogin: uu
 cp ssword: uucp
 ```
 
-Both *decvax* and *inhp4* will be dialed using the directly-connected
+Both *decvax* and *ihnp4* will be dialed using the directly-connected
 */dev/tty00*. When we phone *decvax* it will send *ATDT5551234* to *tcpdial*
-and expect to see *CONNECT* back. Similarly, phoning *inhp4* will
+and expect to see *CONNECT* back. Similarly, phoning *ihnp4* will
 send *ATDT5556789* and expect to see *CONNECT* back.
 
 At the *tcpdial* end, when it sees a matching ATDT and number, it will
