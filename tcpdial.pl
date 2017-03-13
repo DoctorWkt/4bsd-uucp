@@ -127,17 +127,14 @@ sub copyloop {
 
                     #print( STDERR "Reading from remote host\n" ) if ($debug);
                     $fh->recv( $data, 1024 );
+                    goto end if ( $data eq '');
                     $port2->send($data);
-                    goto end if ( $data =~
-                        m{Disconnected from the VAX 11/780 simulator} );
-                }
-                else {
+                } else {
 
                     #print( STDERR "Reading from local port\n" ) if ($debug);
                     $fh->recv( $data, 1024 );
+                    goto end if ( $data eq '');
                     $port1->send($data);
-                    goto end if ( $data =~
-                        m{Disconnected from the VAX 11/780 simulator} );
                 }
             }
         }
@@ -160,20 +157,18 @@ sub get_dial_command {
         # Get any new data, return if connection lost
         my $newdata;
         $port->recv( $newdata, 1024 );
+	if ($newdata eq '') {
+	  Log( LOG_INFO, "Lost local connection waiting for dial command");
+	  $port->close(); return ( undef, undef );
+	}
 
         # Drop any high bits to get plain ASCII
         $newdata =~ tr [\200-\377] [\000-\177];
-
-        #print(STDERR "newdata: " . Dumper(\$newdata) ) if ($debug);
-        if ( !defined($newdata) ) { $port->close(); return ( undef, undef ); }
-
         $data = $data . $newdata;
-        print( STDERR "data: " . Dumper( \$data ) ) if ($debug);
 
-        # Deal with disconnections from the local SimH system
-        if ( $data =~ m{Disconnected from the VAX 11/780 simulator} ) {
-            $port->close(); return ( undef, undef );
-        }
+        #print(STDERR "newdata: " . Dumper(\$err) . " " .
+	#	Dumper(\$newdata) ) if ($debug);
+        #print( STDERR "data: " . Dumper( \$data ) ) if ($debug);
 
         # See if we have an ATDT command and parse it.
         # The regexp is general enough to allow, e.g. ATDSfreddo
@@ -184,6 +179,8 @@ sub get_dial_command {
                 my ( $num, $host, $port ) = split( /:/, $n );
                 if ( $num eq $desirednum ) { return ( $host, $port ); }
             }
+
+	    # No matching number, so give up
             $port->close(); return ( undef, undef );
         }
 
@@ -199,8 +196,7 @@ sub Log {
     my ( $level, $mesg ) = @_;
     if ($debug) {
         print( STDERR $mesg . "\n" );
-    }
-    else {
+    } else {
         syslog( $level, $mesg );
     }
 }
