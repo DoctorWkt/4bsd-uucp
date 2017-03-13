@@ -20,7 +20,7 @@ In the SimH .ini file, we change our outbound connections to just one
 which connects to *tcpdial*:
 
 ```sh
-attach dz line=0,Connect=localhost:4000
+attach dz -a -m line=0,Connect=localhost:4000
 ```
 
 and this corresponds to */dev/tty00* in the simulated 4.3BSD system.
