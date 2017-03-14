@@ -220,7 +220,7 @@ every minute:
 ```
 
 # Testing against an External System
-I've set up a simulated *seismo* at *simh.tuhs.org* port 5000. If you want to
+I've set up a simulated *decvax* at *simh.tuhs.org* port 5000. If you want to
 try sending e-mail to this system, here is what you can do. In your SimH .ini
 file, put (or change) this line to say:
 
@@ -241,32 +241,32 @@ Now try:
 # tip dialer
 ```
 
-which should connect out over */dev/tty00* to *seismo* via the TCP connection.
+which should connect out over */dev/tty00* to *decvax* via the TCP connection.
 Hit Return a few times to see if there is any response. On your host system,
 do `netstat -a | grep ESTAB` and see if there is a TCP connection to
 *simh.tuhs.org:5000*. To get out of tip, type in the two characters `~.`
 
-To send mail to *seismo!root*, you need to do a few extra things. Set up your
+To send mail to *decvax!root*, you need to do a few extra things. Set up your
 */usr/lib/uucp/L.sys* file with a line that says:
 
 ```sh
-seismo Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
+decvax Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
 ```
 
-so that the uucp site *seismo* can be contacted via */dev/tty00*. Edit your
-*/usr/lib/sendmail.cf* with an extra line that identifies *seismo* as a remote
+so that the uucp site *decvax* can be contacted via */dev/tty00*. Edit your
+*/usr/lib/sendmail.cf* with an extra line that identifies *decvax* as a remote
 site:
 
 ```sh
-CWseismo                 (near the other CW lines)
+CWdecvax                 (near the other CW lines)
 ```
 
 Then you can try doing:
 
 ```sh
-# echo hello there | mail seismo\!root
+# echo hello there | mail decvax\!root
   <wait a few seconds>
-# /usr/lib/uucp/uucico -r1 -sseismo -x7
+# /usr/lib/uucp/uucico -r1 -decvax -x7
 ```
 
 and you should see the debug information with parts of the uucp conversation.
@@ -282,6 +282,31 @@ where you ran `vax780 system.ini`. It is a good idea to add a non-root user
 so that you can telnet in on the TCP port: *only do this on localhost, as
 the telnet session is not encrypted*. If you add this non-root user to the
 group *wheel* (in `/etc/group`), then you can `su` and become root.
+
+# Disabling the Telnet Protocol
+
+If you are running a SimH site which accepts connections from non-SimH uucp sites
+(or vice versa), then there can be a problem because SimH uses the Telnet protocol
+on the TCP port to, for example, know when to echo/not echo text (think: passwords).
+This can cause uucp protocol problems, as the Telnet can interpret the incoming uucp
+data, which screws up the uucp protocol.
+
+If you have this situation, you can set up an incoming TCP port with Telnet disabled.
+You will still want some of your simulated tty lines doing Telnet, so that you can log
+into your simulated 4.3BSD system and have your password hidden. Here is an example
+SimH configuration file with Telnet disabled.
+
+```sh
+# Set up eight DZ serial ports in 8-bit mode.
+# Connect to a remote uucp site on 127.0.0.1:6000
+# Listen on TCP port 5001 with Telnet disabled
+# All other DZ lines will listen on port 5000 with Telnet enabled
+set dz lines=8
+set dz 8b
+attach dz -a -m line=0,Connect=127.0.0.1:6000
+attach dz -a -m line=1,5001;notelnet
+attach dz -a -m 5000
+```
 
 # Notes and Gotchas
 If you telnet into one of your sites, you will see garbage instead of
