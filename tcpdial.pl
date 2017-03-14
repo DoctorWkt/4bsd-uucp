@@ -181,6 +181,7 @@ sub get_dial_command {
             }
 
 	    # No matching number, so give up
+            Log( LOG_WARNING, "Unrecognised number/system $desirednum" );
             $port->close(); return ( undef, undef );
         }
 
