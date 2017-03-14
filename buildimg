@@ -38,18 +38,21 @@ foreach my $i (@ARGV) {
 system("rm -rf etc usr mkdirs");
 
 # Make the additional filesystem areas
-system("mkdir -p etc usr/lib/uucp usr/spool/uucp usr/spool/uucp/C. " .
-	"usr/spool/uucp/XTMP usr/man/manl usr/local/bin " .
-	"usr/spool/uucp/D.$hostname" . "X usr/spool/uucp/D.$hostname " .
-	"usr/spool/uucp/D. usr/spool/uucp/X. usr/spool/uucp/TM.");
+system("mkdir -p etc usr/lib/uucp");
+#system("mkdir -p etc usr/lib/uucp usr/spool/uucp usr/spool/uucp/C. " .
+#	"usr/spool/uucp/XTMP usr/man/manl usr/local/bin " .
+#	"usr/spool/uucp/D.$hostname" . "X usr/spool/uucp/D.$hostname " .
+#	"usr/spool/uucp/D. usr/spool/uucp/X. usr/spool/uucp/TM.");
 
 # Personalise the hostname and overwrite the rc.local
 system("echo $hostname > etc/hostname");
 system("cp template/rc.local etc/rc.local");
+system("cp template/group etc/group");
+system("cp template/passwd etc/passwd");
 
 # Copy some binaries over
-system("cp template/wish template/less usr/local/bin");
-system("cp template/wish.l template/less.l usr/man/manl");
+#system("cp template/wish template/less usr/local/bin");
+#system("cp template/wish.l template/less.l usr/man/manl");
 system("cp template/dotlogin .login");
 
 # Create the ttys file
@@ -65,8 +68,7 @@ foreach my $i (0 .. 7) {
 close($OUT);
 
 # Copy over the L-devices and the password file
-system("cp template/L-devices usr/lib/uucp");
-system("cp template/passwd etc/passwd");
+#system("cp template/L-devices usr/lib/uucp");
 
 # Generate the L.sys file
 open($OUT, ">", "usr/lib/uucp/L.sys") || die("usr/lib/uucp/L.sys: $!");

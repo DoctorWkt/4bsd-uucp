@@ -1,17 +1,15 @@
 OWNER=uucp
 GROUP=daemon
-PUBDIR=/usr/spool/uucppublic
 SPOOL=/usr/spool/uucp
 LIB=/usr/lib/uucp
 
 name=`cat /etc/hostname`
 hostname $name
-chown $OWNER $LIB/*; chgrp $GROUP $LIB/*
-mkdir $SPOOL; chmod 755 $SPOOL; chown $OWNER $SPOOL; chgrp $GROUP $SPOOL
-mkdir $PUBDIR; chmod 777 $PUBDIR; chown $OWNER $PUBDIR; chgrp $GROUP $PUBDIR
+cd $LIB
+chown $OWNER.$GROUP L.sys; chmod 400 L-devices
 cd $SPOOL
-for i in C. D."$name"X D.$name D. X. TM. XTMP STST
-do mkdir $i; chown $OWNER $i; chgrp $GROUP $i; chmod 755 $i
+for i in D."$name"X D.$name
+do mkdir $i; chown $OWNER.$GROUP $i; chmod 755 $i
 done
 kill -1 1
 chown $OWNER /dev/tty0*

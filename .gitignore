@@ -1,7 +1,9 @@
 mktape
 *.dsk
 *.dsk.gz
+*.dsk.bz2
 *.ini
 *.tap
 mktape
 RCS
+ImgBuild
