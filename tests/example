@@ -1,28 +1,29 @@
 # This script follows the examples in README.md as much as possible
 # It is optimised to work with Travis CI, see also the .travis.yml file
 
-function check {
+check() {
   echo -ne "$*\t"
 }
 
-function ok {
-  echo -e "[ \e[38;5;32msuccess\e[0m ]"
+ok() {
+  echo "[ $(tput setaf 2 2>/dev/null)success${reset} ]"
 }
 
-function nok {
-  echo -e "[ \e[38;5;31mfailure\e[0m ]"
+nok() {
+  echo "[ $(tput setaf 1 2>/dev/null)failure${reset} ]"
 }
 
-function warn {
-  echo -e "[ \e[38;5;33mwarning\e[0m ]"
+warn() {
+  echo "[ $(tput setaf 3 2>/dev/null)warning${reset} ]"
 }
 
-function format {
+format() {
   awk -F'\t' '{ printf "%-60s %s\n",$1,$2 }'
 }
 
 export wd=$(pwd)
-gmake -v >/dev/null 2>&1 && export MAKE=gmake || export MAKE=make
+export reset="$(tput sgr0 2>/dev/null)"
+gmake -v >/dev/null 2>&1 && export make=gmake || export make=make
 export simh_url=https://github.com/simh/simh/archive/master.tar.gz
 export simh_cmd=simh-master/BIN/vax780
 
@@ -65,7 +66,7 @@ check site7 tape;                      ls -l site5.tap                          
 check site7 ini;                       ls -l site5.ini                                  >/dev/null 2>&1 && ok || nok
 check site7 disk;                      ls -l site5.dsk                                  >/dev/null 2>&1 && ok || nok
 check fetch simh sources;              wget -q -O - ${simh_url}| gunzip -c | tar -xf -  >/dev/null 2>&1 && ok || nok
-check compile vax780 emulator;         cd simh-master && make vax780                    >/dev/null 2>&1 && ok || nok
+check compile vax780 emulator;         cd simh-master && ${make} vax780                 >/dev/null 2>&1 && ok || nok
 check strip vax780 emulator;           cd ${wd} && strip ${simh_cmd}                    >/dev/null 2>&1 && ok || nok
 
 # ready to run
