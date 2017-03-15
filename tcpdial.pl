@@ -81,29 +81,14 @@ while (1) {
     my $acceptsocket = $listensocket->accept();
     Log( LOG_INFO, "Accepted local connection on port $listenport" );
 
-    # Get the remote host and port, Loop back if none
-    my ( $remotehost, $remoteport ) = get_dial_command($acceptsocket);
-    next if ( !defined($remotehost) );
-
-    # Try to connect to the remote host
-    my $clientsocket = new IO::Socket::INET(
-        PeerHost => $remotehost,
-        PeerPort => $remoteport,
-        Proto    => 'tcp',
-    );
-
-    # Could not connect, so close the local connection
-    if ( !defined($clientsocket) ) {
-        LOG( LOG_ERR, "Could not connect to $remotehost:$remoteport" );
-        $acceptsocket->close();
-        next;
+    # Fork a child to deal with the new request
+    if (!fork()) {
+      Log( LOG_INFO, "Forked a child to deal with the request" );
+      handle_dial_request($acceptsocket); exit(0);
     }
 
-    # Connected, tell the local dialer, then loop copying the data
-    Log( LOG_INFO, "Connected to $remotehost:$remoteport" );
-    print( $acceptsocket "CONNECT\r\n" );
-    copyloop( $acceptsocket, $clientsocket );
-    Log( LOG_INFO, "Connection to $remotehost:$remoteport closed" );
+    # Otherwise, go back and wait for a new local connection
+    $acceptsocket->close();
 }
 exit(0);
 
@@ -153,6 +138,7 @@ sub get_dial_command {
     Log( LOG_INFO, "Waiting to get dial command from local SimH" );
 
     while (1) {
+	#print(STDERR ".") if ($debug);
 
         # Get any new data, return if connection lost
         my $newdata;
@@ -166,9 +152,8 @@ sub get_dial_command {
         $newdata =~ tr [\200-\377] [\000-\177];
         $data = $data . $newdata;
 
-        #print(STDERR "newdata: " . Dumper(\$err) . " " .
-	#	Dumper(\$newdata) ) if ($debug);
-        #print( STDERR "data: " . Dumper( \$data ) ) if ($debug);
+        #print(STDERR "newdata: " .  Dumper(\$newdata) ) if ($debug);
+        #print(STDERR "data: " . Dumper( \$data ) ) if ($debug);
 
         # See if we have an ATDT command and parse it.
         # The regexp is general enough to allow, e.g. ATDSfreddo
@@ -200,4 +185,36 @@ sub Log {
     } else {
         syslog( $level, $mesg );
     }
+}
+
+# As a child, get the dial command, place the call, copy the data
+# and then exit. This function must not return!
+sub handle_dial_request
+{
+    my $acceptsocket= shift;
+
+    # Get the remote host and port, exit if none
+    my ( $remotehost, $remoteport ) = get_dial_command($acceptsocket);
+    exit(0) if ( !defined($remotehost) );
+
+    # Try to connect to the remote host
+    my $clientsocket = new IO::Socket::INET(
+        PeerHost => $remotehost,
+        PeerPort => $remoteport,
+        Proto    => 'tcp',
+    );
+
+    # Could not connect, so close the local connection
+    if ( !defined($clientsocket) ) {
+        LOG( LOG_ERR, "Could not connect to $remotehost:$remoteport" );
+        $acceptsocket->close();
+        exit(0);
+    }
+
+    # Connected, tell the local dialer, then loop copying the data
+    Log( LOG_INFO, "Connected to $remotehost:$remoteport" );
+    print( $acceptsocket "CONNECT\r\n" );
+    copyloop( $acceptsocket, $clientsocket );
+    Log( LOG_INFO, "Connection to $remotehost:$remoteport closed" );
+    exit(0);
 }
