@@ -40,8 +40,8 @@ Connects-to: mips
 
 Site: ucbvax
 Contact: Cory Smelosky
-TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+TCP Hostname/port: sj.gewt.net:5000
+Connects-to: zilog, decvax
 
 Site: uwvax
 Contact: Larry McVoy
