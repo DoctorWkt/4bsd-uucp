@@ -37,23 +37,14 @@ foreach my $i (@ARGV) {
 # Remove any previous filesystem
 system("rm -rf etc usr mkdirs");
 
-# Make the additional filesystem areas
+# Make the additional filesystem areas for the customised tarball
 system("mkdir -p etc usr/lib/uucp");
-#system("mkdir -p etc usr/lib/uucp usr/spool/uucp usr/spool/uucp/C. " .
-#	"usr/spool/uucp/XTMP usr/man/manl usr/local/bin " .
-#	"usr/spool/uucp/D.$hostname" . "X usr/spool/uucp/D.$hostname " .
-#	"usr/spool/uucp/D. usr/spool/uucp/X. usr/spool/uucp/TM.");
 
 # Personalise the hostname and overwrite the rc.local
 system("echo $hostname > etc/hostname");
 system("cp template/rc.local etc/rc.local");
 system("cp template/group etc/group");
 system("cp template/passwd etc/passwd");
-
-# Copy some binaries over
-#system("cp template/wish template/less usr/local/bin");
-#system("cp template/wish.l template/less.l usr/man/manl");
-system("cp template/dotlogin .login");
 
 # Create the ttys file
 open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
@@ -66,9 +57,6 @@ foreach my $i (0 .. 7) {
   }
 }
 close($OUT);
-
-# Copy over the L-devices and the password file
-#system("cp template/L-devices usr/lib/uucp");
 
 # Generate the L.sys file
 open($OUT, ">", "usr/lib/uucp/L.sys") || die("usr/lib/uucp/L.sys: $!");
@@ -91,12 +79,16 @@ foreach my $r (@remotename) {
 }
 print($OUT "\n");
 close($OUT);
+
+# Create the sendmail.cf file, and customise the mkdirs script
 system("cat template/sendmail.cf >> usr/lib/sendmail.cf");
-system("cp template/mkdirs mkdirs");
+my $r= "remote=\\'" . join(' ', @remotename) . "\\'";
+system("echo $r > mkdirs; chmod 755 mkdirs");
+system("cat template/mkdirs >> mkdirs");
 
 # Build the tap image
-system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs .login etc usr | ./mktape /dev/stdin > $hostname.tap");
-system("rm -rf .login etc usr mkdirs");
+system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs etc usr | ./mktape /dev/stdin > $hostname.tap");
+system("rm -rf etc usr mkdirs");
 
 # Generate the system's SimH config file
 open($OUT, ">", "$hostname.ini") || die("$hostname.ini: $!");

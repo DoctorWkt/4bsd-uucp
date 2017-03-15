@@ -1,19 +1,38 @@
-OWNER=uucp
-GROUP=daemon
-SPOOL=/usr/spool/uucp
-LIB=/usr/lib/uucp
 
+# Set up the hostname
 name=`cat /etc/hostname`
 hostname $name
-cd $LIB
-chown $OWNER.$GROUP L.sys; chmod 400 L-devices
-cd $SPOOL
+
+# Add an editor to /.cshrc
+echo "setenv EDITOR /usr/ucb/vi" >> /.cshrc
+
+# Fix up the L.sys ownership
+cd /usr/lib/uucp
+chown uucp.daemon L.sys; chmod 400 L-devices
+
+# Create spool directories for our system
+cd /usr/spool/uucp
 for i in D."$name"X D.$name
-do mkdir $i; chown $OWNER.$GROUP $i; chmod 755 $i
+do mkdir $i; chown uucp.daemon $i; chmod 755 $i
 done
+
+# Set up our name for news
+cat /etc/hostname > /usr/lib/news/whoami
+cat /etc/hostname > /usr/lib/news/mailname
+
+# Add the remote sites to the news system
+echo 'ME:all/all::' >> /usr/lib/news/sys
+for i in $remote
+do
+echo "$i:all/all:f:" >> /usr/lib/news/sys
+mkdir /usr/spool/news/out.going/$i
+chown news.news /usr/spool/news/out.going/$i
+done
+
+# Ensure that uucp owns the tty device files
+chown uucp /dev/tty0*
 kill -1 1
-chown $OWNER /dev/tty0*
-echo 'setenv TERM vt100' >> /.cshrc
-rm /etc/passwd.*
-/etc/mkpasswd /etc/passwd
+
+# Get root to logout so we have our name seen by getty
 echo 'Now logout and login again'
+rm -f /mkdirs
