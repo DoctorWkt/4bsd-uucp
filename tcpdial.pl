@@ -206,7 +206,7 @@ sub handle_dial_request
 
     # Could not connect, so close the local connection
     if ( !defined($clientsocket) ) {
-        LOG( LOG_ERR, "Could not connect to $remotehost:$remoteport" );
+        Log( LOG_ERR, "Could not connect to $remotehost:$remoteport" );
         $acceptsocket->close();
         exit(0);
     }
