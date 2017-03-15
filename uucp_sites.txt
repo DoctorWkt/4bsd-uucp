@@ -33,6 +33,11 @@ Contact: Dave Horsfall
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
 
+Site: zilog
+Contact: Rik Schneider
+TCP Hostname/port: as yet unknown
+Connects-to: ucbvax
+
 Site: sly
 Contact: John Labovitz
 TCP Hostname/port: as yet unknown
