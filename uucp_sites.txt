@@ -68,6 +68,11 @@ Contact: John Floren
 TCP Hostname/port: as yet unknown
 Connects-to: lanl-a
 
+Site: cmc12
+Contact: John Floren
+TCP Hostname/port: uucp.jfloren.net:6670
+Connects-to: seismo
+
 Site: kremvax
 Contact: Kurt H Maier
 TCP Hostname/port: wopr.sciops.net:5000
@@ -96,4 +101,4 @@ Connects-to: decvax
 Site: seismo
 Contact: Warren Toomey
 TCP Hostname/port: minnie.tuhs.org:5500
-Connects-to: philabs
+Connects-to: philabs, cmc12
