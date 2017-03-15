@@ -1,4 +1,4 @@
-#Setting up C-News
+# Setting up C-News
 
 This assumes that you have downloaded the 4.3BSD system from Github,
 configured it for uucp, and confirmed that you can send e-mail between
@@ -54,7 +54,7 @@ decvax# su news -c /usr/lib/newsbin/input/newsrun
 decvax# readnews -n tuhs.test
 ```
 
-#Example Config Files
+# Example Config Files
 
 John Floren writes: Here are my config files:
 
