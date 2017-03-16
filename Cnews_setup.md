@@ -1,11 +1,11 @@
 # Setting up C-News
 
+**Note: This setup has now been merged into the underlying disk image, so you don't need to do this any more. However, the testing section is still useful. -- Warren**
+
 This assumes that you have downloaded the 4.3BSD system from Github,
 configured it for uucp, and confirmed that you can send e-mail between
 two systems.
 
-*I will merge most of these changes into the base 4.3BSD rq.dsk.gz
-image, and modify buildimg to make the per-site cutomisations -- Warren*
 
 ```sh
 # Change the path in L.cmds
