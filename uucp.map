@@ -31,6 +31,21 @@ seismo  cmc12(DIRECT), philabs(DIRECT)
 #
 decvax  ihnp4(DIRECT), philabs(DIRECT), ucbvax(DIRECT)
 
+#N	ucbvax
+#S	DEC VAX-11/750; 4.3 BSD UNIX
+#O	University of California at Berkeley, Computer Science Division
+#C	Robert W. Henry
+#E	ucbvax!usenet, ucbvax!postmaster
+#T	+1 415 642 1024
+#P	573 Evans Hall, Berkeley, CA 94720
+#L	37 52 28 N / 122 15 23 W
+#R	
+#U	decvax decwrl ibmpa ucsfcgl ucbcad ucbjade ucdavis usenix nike
+#W	hplabs!fowler (Greg Fowler); Mon Jul 21 15:20:57 PDT 1986
+#I	Cory Smelosky; sj.gewt.net:5000
+#
+ucbvax	decvax(DIRECT)
+
 #N      ihnp4
 #S      Vax 780; 4.3BSD
 #O      Indian Hill Network Processing 4
@@ -71,3 +86,8 @@ philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
 #I	Warren Toomey; 192.168.1.1:5500
 #
 munnari decvax(DIRECT)
+
+#N	cmc12
+#I	John Floren; uucp.jfloren.net:6670
+cmc12	seismo(DIRECT)
+
