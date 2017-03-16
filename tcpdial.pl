@@ -21,6 +21,7 @@ use IO::Select;
 use Sys::Syslog qw(:standard :macros);
 use Proc::Daemon;
 use Getopt::Long;
+use POSIX ":sys_wait_h";
 use Data::Dumper;
 
 # flush after every write
@@ -74,16 +75,22 @@ my $listensocket = new IO::Socket::INET(
     Reuse     => 1
 ) or die "Cannot listen on TCP port $listenport: $!\n";
 
+# Get ready to reap zombie children
+$SIG{ALRM}= \&reap_children;
+alarm(180);
+
 while (1) {
 
     # Wait for a new local connection
     Log( LOG_INFO, "Waiting for a local connection on port $listenport" );
     my $acceptsocket = $listensocket->accept();
+    next if (!defined($acceptsocket));
     Log( LOG_INFO, "Accepted local connection on port $listenport" );
 
     # Fork a child to deal with the new request
     if (!fork()) {
       Log( LOG_INFO, "Forked a child to deal with the request" );
+      $SIG{ALRM}= undef;
       handle_dial_request($acceptsocket); exit(0);
     }
 
@@ -217,4 +224,16 @@ sub handle_dial_request
     copyloop( $acceptsocket, $clientsocket );
     Log( LOG_INFO, "Connection to $remotehost:$remoteport closed" );
     exit(0);
+}
+
+# Reap any zombie children
+sub reap_children
+{
+  my $kid=0;
+  Log( LOG_INFO, "In reap_children") if ($debug);
+  alarm(180);
+  do {
+    $kid = waitpid(-1, WNOHANG);
+    Log( LOG_INFO, "Reaped child $kid") if ($debug);
+  } while $kid > 0;
 }
