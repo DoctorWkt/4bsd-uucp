@@ -86,15 +86,6 @@ file permissions:
 myname# tar xf /dev/rmt12
 tar: blocksize = 1
 myname# ./mkdirs
-mkdir: /usr/spool/uucp: File exists
-mkdir: /usr/spool/uucppublic: File exists
-mkdir: C.: File exists
-mkdir: D.site5X: File exists
-mkdir: D.site5: File exists
-mkdir: D.: File exists
-mkdir: X.: File exists
-mkdir: TM.: File exists
-mkdir: XTMP: File exists
 29 password entries, maximum length 93
 Now logout and login again
 ```
