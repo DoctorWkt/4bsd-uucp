@@ -38,13 +38,17 @@ foreach my $i (@ARGV) {
 system("rm -rf etc usr mkdirs");
 
 # Make the additional filesystem areas for the customised tarball
-system("mkdir -p etc usr/lib/uucp");
+system("mkdir -p etc usr/lib/uucp bin usr/include/sys");
 
 # Personalise the hostname and overwrite the rc.local
 system("echo $hostname > etc/hostname");
-system("cp template/rc.local etc/rc.local");
-system("cp template/group etc/group");
-system("cp template/passwd etc/passwd");
+system("cp template/etc/rc.local etc/rc.local");
+system("cp template/etc/group etc/group");
+system("cp template/etc/passwd etc/passwd");
+
+# Fix up some broken files
+system("cp template/usr/include/sys/types.h usr/include/sys/types.h");
+system("cp template/bin/date bin/date");
 
 # Create the ttys file
 open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
@@ -81,14 +85,14 @@ print($OUT "\n");
 close($OUT);
 
 # Create the sendmail.cf file, and customise the mkdirs script
-system("cat template/sendmail.cf >> usr/lib/sendmail.cf");
+system("cat template/usr/lib/sendmail.cf >> usr/lib/sendmail.cf");
 my $r= "remote=\\'" . join(' ', @remotename) . "\\'";
 system("echo $r > mkdirs; chmod 755 mkdirs");
 system("cat template/mkdirs >> mkdirs");
 
 # Build the tap image
-system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs etc usr | ./mktape /dev/stdin > $hostname.tap");
-system("rm -rf etc usr mkdirs");
+system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs bin etc usr | ./mktape /dev/stdin > $hostname.tap");
+system("rm -rf etc usr mkdirs bin");
 
 # Generate the system's SimH config file
 open($OUT, ">", "$hostname.ini") || die("$hostname.ini: $!");
