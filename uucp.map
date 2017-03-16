@@ -56,3 +56,18 @@ ihnp4	decvax(DIRECT), cbosgd(DIRECT)
 #
 philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
 
+#N      munnari
+#S      VAX 11/780 running 4.2BSD
+#O      Melbourne University, Dept. of Comp. Sci.
+#C      Robert Elz
+#E      munnari!kre        
+#T      +61 3 341 5225
+#P      Parkville, Victoria, Australia 3052
+#L      37 48 S / 144 58 E city
+#U      mulga basser natmlab moncskermit dmsadel murdu dmtvax elecadel
+#U      mungunni seismo
+#R        
+#W      850531 kre, 851103 rsk
+#I	Warren Toomey; 192.168.1.1:5500
+#
+munnari decvax(DIRECT)

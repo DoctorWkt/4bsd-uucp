@@ -11,12 +11,12 @@ Connects-to: decvax
 Site: decvax
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:5000
-Connects-to: ihnp4
+Connects-to: ihnp4, philabs, ucbvax
 
 Site: ihnp4
 Contact: Warren Toomey
 TCP Hostname/port: minnie.tuhs.org:5000
-Connects-to: decvax
+Connects-to: decvax, cbosgd
 
 Site: gatech
 Contact: Arnold Robbins
@@ -96,7 +96,7 @@ Connects-to: as yet unknown
 Site: philabs
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:5500
-Connects-to: decvax
+Connects-to: decvax, seismo, mcvax
 
 Site: seismo
 Contact: Warren Toomey
