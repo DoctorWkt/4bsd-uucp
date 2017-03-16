@@ -1,0 +1,58 @@
+#N      seismo
+#S      Sun SPARCstation 1+; SunOS 4.1.1
+#O      Center for Seismic Studies
+#C      David S. Comay
+#E      postmaster@seismo.CSS.GOV, seismo!postmaster
+#T      +1 703 276 7900
+#P      1300 North 17th Street, Suite 1450, Arlington, VA 22209-3871
+#L      38 53 40 N / 077 04 34 W
+#R
+#U      darwin.sura.net esosun expres.expres.nsf.gov hal lll-winken news.bbn.com
+#U      rsg1 sundc ukma uunet
+#W      dsc@seismo.CSS.GOV (David S. Comay); Tue Apr  7 10:20:25 EDT 1992
+#I	Warren Toomey; minnie.tuhs.org:5500
+#
+seismo  cmc12(DIRECT), philabs(DIRECT)
+
+#N	decvax, decvax.dec.com
+#S	Vax 8300; Ultrix 32 V2.2
+#O	Digital Equipment Corp.
+#C	Larry Palmer
+#E	decvax!lp
+#T	(603)8848385
+#P	MK2-1/H10 Continental Blvd, Merrimack, NH 03054
+#L	42 49 N / 71 31 W
+#R	
+#W	
+#U	bellcore cca mandrill dartvax decwrl genrad gsg harpo ichaya 
+#U	linus mcnc savax tektronix ucbvax vortex yale
+#R	decvax has moved to a new location - an update is expected soon... -jj
+#I	Warren Toomey; simh.tuhs.org:5000
+#
+decvax  ihnp4(DIRECT), philabs(DIRECT), ucbvax(DIRECT)
+
+#N      ihnp4
+#S      Vax 780; 4.3BSD
+#O      Indian Hill Network Processing 4
+#C      Warren Toomey
+#E      ihnp!wkt
+#I	Warren Toomey; minnie.tuhs.org:5000
+#
+ihnp4	decvax(DIRECT), cbosgd(DIRECT)
+
+#N	.philips.com, philabs
+#F	uunet.uu.net
+#O	Philips Laboratories, North American Philips
+#C	William Robertson, John Murphy
+#E	rob@philabs.Philips.Com, jam@philabs.Philips.Com
+#T	(914)  945-6300, (914)	945-6216
+#P	345 Scarborough Road, Briarcliff Manor, New York  10510
+#L	41 09 N / 73 50 W city
+#U	aecom cmcl2 gcm gotham hhb lamont linus mergvax micomvax nbc1
+#U	nynex1 phri polycatt prlb2 prls pwa-b spies step trotter
+#U	ttidca 
+#W	by rob@philabs.philips.com ; Sun Mar 20 11:41:19 EST 1988
+#I	Warren Toomey; simh.tuhs.org:5500
+#
+philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
+
