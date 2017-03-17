@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use strict;
+use warnings;
+use Data::Dumper;
+
+# Start the dot output
+open(my $OUT, "|-", "dot -Tpng -o uucp.png") || die("dot pipe failed: $!\n");
+print($OUT "strict graph {\n");
+
+open(my $IN, "<", "uucp.map") || die("open uucp.map failed: $!\n");
+while (<$IN>) {
+  chomp;
+
+  # Find a connection entry
+  if (m{(^[A-Za-z0-9]\S*)\s+(.*)}) {
+    my ($src, $dstlist)= ($1, $2);
+    
+    # Lose () and whitepace on the dstlist
+    $dstlist=~ s{\s}{}g;
+    $dstlist=~ s{\([^)]+\)}{}g;
+
+    # Now split and print out the dot lines
+    foreach my $dst (split(/,/, $dstlist)) {
+      print($OUT "  $src -- $dst\n");
+    }
+  }
+}
+close($IN);
+
+# End the dot output
+print($OUT "}\n");
+close($OUT);
+exit(0);
