@@ -12,7 +12,7 @@
 #W      dsc@seismo.CSS.GOV (David S. Comay); Tue Apr  7 10:20:25 EDT 1992
 #I	Warren Toomey; minnie.tuhs.org:5500
 #
-seismo  cmc12(DIRECT), philabs(DIRECT)
+seismo  cmc12(DIRECT), philabs(DIRECT), mcvax(DIRECT)
 
 #N	decvax, decvax.dec.com
 #S	Vax 8300; Ultrix 32 V2.2
@@ -29,7 +29,7 @@ seismo  cmc12(DIRECT), philabs(DIRECT)
 #R	decvax has moved to a new location - an update is expected soon... -jj
 #I	Warren Toomey; simh.tuhs.org:5000
 #
-decvax  ihnp4(DIRECT), philabs(DIRECT), ucbvax(DIRECT)
+decvax  ihnp4(DIRECT), philabs(DIRECT), ucbvax(DIRECT), mcvax(DIRECT)
 
 #N	ucbvax
 #S	DEC VAX-11/750; 4.3 BSD UNIX
@@ -91,3 +91,31 @@ munnari decvax(DIRECT)
 #I	John Floren; uucp.jfloren.net:6670
 cmc12	seismo(DIRECT)
 
+#N	mcvax
+#S	VAX750/4.2BSD
+#O	Centrum voor Wiskunde en Informatica (CWI)
+#C	Piet Beertema
+#E	mcvax!piet
+#T	+31 20 5920333
+#P	Kruislaan 413, NL-1098 SJ Amsterdam, Netherlands
+#L	52.22N 4.54E
+#R	
+#U	cernvax, diku, enea, kunivv1, kvport, philmds, prlb2, riv04, sara70, seismo, tnocsda, ukc, unido, uva, vmucnam
+#W	mcvax!piet 850103
+#I	Jacob Goense; mcvax.eunet.it:20333
+#
+mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT)
+
+#N	ukc
+#S	VAX11/780, 4.2BSD
+#O	Computing Laboratory, University of Kent
+#C	Peter Collinson
+#E	ukc!uknet ukc!pc 
+#T	+44 227 66822 ext 7619
+#P	Canterbury; Kent CT2 7NF
+#L	01:05:00E 51:18:00N
+#R	
+#W	ukc!pc 85/05/11
+#I	Jacob Goense; ukc.eunet.it:7619
+#
+ukc	mcvax(DIRECT)
