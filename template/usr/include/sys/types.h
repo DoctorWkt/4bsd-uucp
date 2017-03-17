@@ -44,6 +44,8 @@ typedef	short	dev_t;
 typedef	long	off_t;
 typedef	u_short	uid_t;
 typedef	u_short	gid_t;
+/* top et al. like this */
+typedef	short  	pid_t;
 
 #define	NBBY	8		/* number of bits in a byte */
 /*
