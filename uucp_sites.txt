@@ -102,3 +102,8 @@ Site: seismo
 Contact: Warren Toomey
 TCP Hostname/port: minnie.tuhs.org:5500
 Connects-to: philabs, cmc12
+
+Site: pyramid
+Contact: William Pechter
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
