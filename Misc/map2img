@@ -3,6 +3,10 @@ use strict;
 use warnings;
 use Data::Dumper;
 
+# Hash arrays of known sites and their connections
+my %Node;
+my %Conn;
+
 # Start the dot output
 open(my $OUT, "|-", "dot -Tpng -o uucp.png") || die("dot pipe failed: $!\n");
 print($OUT "strict graph {\n");
@@ -14,6 +18,7 @@ while (<$IN>) {
   # Find a connection entry
   if (m{(^[A-Za-z0-9]\S*)\s+(.*)}) {
     my ($src, $dstlist)= ($1, $2);
+    $Node{$src}=1;
     
     # Lose () and whitepace on the dstlist
     $dstlist=~ s{\s}{}g;
@@ -21,11 +26,21 @@ while (<$IN>) {
 
     # Now split and print out the dot lines
     foreach my $dst (split(/,/, $dstlist)) {
-      print($OUT "  $src -- $dst\n");
+      $Conn{$src}{$dst}=1;
     }
   }
 }
 close($IN);
+
+# Go through the Conn hash. Only print out connections where
+# both sides are represented as a source. This removes nodes
+# which don't yet exist
+foreach my $src (keys(%Conn)) {
+  foreach my $dst (keys(%{$Conn{$src}})) {
+      next if (!defined($Node{$dst}));
+      print($OUT "  $src -- $dst\n");
+  }
+}
 
 # End the dot output
 print($OUT "}\n");
