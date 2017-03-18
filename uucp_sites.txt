@@ -58,20 +58,15 @@ Contact: Norman Wilson
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
 
-Site: lanl-a
+Site: lanl
 Contact: John Floren
 TCP Hostname/port: uucp.jfloren.net:6666
-Connects-to: unmvax
+Connects-to: cmcl2
 
-Site: unmvax
-Contact: John Floren
-TCP Hostname/port: as yet unknown
-Connects-to: lanl-a
-
-Site: cmc12
+Site: cmcl2
 Contact: John Floren
 TCP Hostname/port: uucp.jfloren.net:6670
-Connects-to: seismo
+Connects-to: seismo, lanl
 
 Site: kremvax
 Contact: Kurt H Maier

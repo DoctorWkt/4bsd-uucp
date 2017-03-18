@@ -12,7 +12,7 @@
 #W      dsc@seismo.CSS.GOV (David S. Comay); Tue Apr  7 10:20:25 EDT 1992
 #I	Warren Toomey; minnie.tuhs.org:5500
 #
-seismo  cmc12(DIRECT), philabs(DIRECT), mcvax(DIRECT)
+seismo  cmcl2(DIRECT), philabs(DIRECT), mcvax(DIRECT)
 
 #N	decvax, decvax.dec.com
 #S	Vax 8300; Ultrix 32 V2.2
@@ -87,9 +87,32 @@ philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
 #
 munnari decvax(DIRECT)
 
-#N	cmc12
-#I	John Floren; uucp.jfloren.net:6670
-cmc12	seismo(DIRECT)
+#N	cmcl2
+#S	VAX 11/780, 4.3 BSD
+#O	New York University
+#C	David J. Sullivan
+#E	cmcl2!sullivan
+#T	(212) 460-7288
+#P	251 Mercer St.,NY,NY, 10012
+#L	Lat. 40 deg. 45' 6" N, Long. 73 deg. 59' 39" W
+#R	
+#W	gam per cmcl2!sullivan 4/10/85 (21-aug-85, removed 'rabbit' - gam)
+#       (05-sep-85, removed 'timeinc' - gam)
+#I	John Floren (lanl!jff); uucp.jfloren.net:6670
+cmcl2	seismo(DIRECT), lanl(DIRECT)
+
+#N	lanl
+#S	VAX 11/780, 4.3 BSD
+#O	Los Alamos National Laboratory 
+#C	James R. Clifford
+#E	jrc@LANL.ARPA jrc@LANL.UUCP
+#T	(505) 667-2596
+#P	C-8, Mail Stop B294, Los Alamos, NM 87545 
+#L	35 53 N / 106 19 W
+#R	lanl is the Internet and uucp gateway to the Los Alamos Integrated Computer Network.  Mail is forwarded invisibly to other ICN hosts.
+#W	jhf@LANL, 1984-12-12
+#I	John Floren (lanl!jff); uucp.jfloren.net:6666 
+lanl	cmcl2(DIRECT)
 
 #N	mcvax
 #S	VAX750/4.2BSD
