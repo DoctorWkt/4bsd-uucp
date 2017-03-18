@@ -107,3 +107,8 @@ Site: pyramid
 Contact: William Pechter
 TCP Hostname/port: as yet unknown
 Connects-to: as yet unknown
+
+Site: pirates
+Contact: James B DiGriz
+TCP Hostname/port: as yet unknown
+Connects-to: gatech, although emory would be more historically accurate
