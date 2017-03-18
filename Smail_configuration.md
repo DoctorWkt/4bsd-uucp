@@ -35,7 +35,7 @@ mv /bin/rmail /bin/OLDrmail
 ln /bin/smail /bin/rmail
 ```
 
-Edit the sendmail.cf file and put in your uucp site's name and the
+Edit the *sendmail.cf* file and put in your uucp site's name and the
 list of machines that you can directly connect with uucp. Below are
 the lines for site *munnari* which only connects to *decvax*.
 
@@ -60,7 +60,7 @@ cp sendmail.cf /usr/lib/sendmail.cf
 
 # Running Pathalias and Pathproc
 
-Download the uucp.map file from
+Download the *uucp.map* file from
 [https://github.com/DoctorWkt/4bsd-uucp/blob/4.3BSD/uucp.map].
 You can either do the *mktape, mt rew tar xf* dance, or you can just 
 manually save a text file with the lines without hashes. For example,
