@@ -10,7 +10,7 @@
 #U      darwin.sura.net esosun expres.expres.nsf.gov hal lll-winken news.bbn.com
 #U      rsg1 sundc ukma uunet
 #W      dsc@seismo.CSS.GOV (David S. Comay); Tue Apr  7 10:20:25 EDT 1992
-#I	Warren Toomey; minnie.tuhs.org:5500
+#I	Warren Toomey (seismo!wkt); minnie.tuhs.org:5500
 #
 seismo  cmcl2(DIRECT), philabs(DIRECT), mcvax(DIRECT)
 
@@ -27,7 +27,7 @@ seismo  cmcl2(DIRECT), philabs(DIRECT), mcvax(DIRECT)
 #U	bellcore cca mandrill dartvax decwrl genrad gsg harpo ichaya 
 #U	linus mcnc savax tektronix ucbvax vortex yale
 #R	decvax has moved to a new location - an update is expected soon... -jj
-#I	Warren Toomey; simh.tuhs.org:5000
+#I	Warren Toomey (decvax!wkt); simh.tuhs.org:5000
 #
 decvax  ihnp4(DIRECT), philabs(DIRECT), ucbvax(DIRECT), mcvax(DIRECT)
 
@@ -51,7 +51,7 @@ ucbvax	decvax(DIRECT)
 #O      Indian Hill Network Processing 4
 #C      Warren Toomey
 #E      ihnp!wkt
-#I	Warren Toomey; minnie.tuhs.org:5000
+#I	Warren Toomey (ihnp4!wkt); minnie.tuhs.org:5000
 #
 ihnp4	decvax(DIRECT), cbosgd(DIRECT)
 
@@ -67,7 +67,7 @@ ihnp4	decvax(DIRECT), cbosgd(DIRECT)
 #U	nynex1 phri polycatt prlb2 prls pwa-b spies step trotter
 #U	ttidca 
 #W	by rob@philabs.philips.com ; Sun Mar 20 11:41:19 EST 1988
-#I	Warren Toomey; simh.tuhs.org:5500
+#I	Warren Toomey (philabs!wkt); simh.tuhs.org:5500
 #
 philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
 
@@ -83,7 +83,7 @@ philabs decvax(DIRECT), mcvax(DIRECT), seismo(DIRECT)
 #U      mungunni seismo
 #R        
 #W      850531 kre, 851103 rsk
-#I	Warren Toomey; 192.168.1.1:5500
+#I	Warren Toomey (munnari!wkt); 192.168.1.1:5500
 #
 munnari decvax(DIRECT)
 
