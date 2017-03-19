@@ -142,3 +142,21 @@ mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT)
 #I	Jacob Goense; ukc.eunet.it:7619
 #
 ukc	mcvax(DIRECT)
+
+#N        i2unix, italy.eu.net
+#S
+#O        Dipartimento di Informatica, Sistemistica e Telematica
+#C        Alessandro Berni, Joy Marino
+#E        i2unix!ab, i2unix!joy
+#T        +39 10 353-2747
+#P        Universita' di Genova, Via Opera Pia 11A, I-16145 Genova, Italy
+#L        44.22N 8.55E
+#R        Italian backbone site. Send help requests to iu...@italy.EU.net
+#U        bpb, crai, crcc, enidbo, esacs, ic8u74, imiucca, intecs, irst
+#U        romaint, sarinit, semto, strhold, unirel
+#W        i2unix!ab 880201
+#I	  Jacob Goense
+#
+#i2unix = italy.eu.net
+#
+i2unix	mcvax(DIRECT)
