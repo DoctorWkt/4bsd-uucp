@@ -7,9 +7,9 @@ nodes via TCP links.
 You will need the *bsdtar* program installed so that tarballs compatible with
 4.3BSD can be installed. On Ubuntu, `sudo apt-get install bsdtar`. *Can someone
 add instructions for other systems? The source for bsdtar is at
-[http://www.libarchive.org/]*
+<http://www.libarchive.org/>*
 
-Download the SimH Github repository at [https://github.com/simh/simh].
+Download the SimH Github repository at <https://github.com/simh/simh>.
 In your local copy, build a vax780 SimH binary and copy the resulting binary
 somewhere useful:
 
@@ -118,6 +118,7 @@ systems.
 
 # Testing Your Serial Links
 
+Your mail is now sitting on your system waiting to be delivered over uucp.
 Before you try to do a uucp connection, you can check if you have a working
 serial link with a remote uucp site. In your simulated 4.3BSD system, edit
 the *dialer* line in */etc/remote* to say:
@@ -135,7 +136,7 @@ Now try:
 which should connect out over */dev/tty00* to the remote uucp site via the
 TCP connection. Hit Return a few times to see if there is any response. On your
 host system, do `netstat -a | grep ESTAB` and see if there is a TCP connection
-to the remote system. To get out of tip, type in the two characters `~.`
+to the remote system. To get out of *tip*, type in the two characters `~.`
 
 # Performing UUCP Connections
 
@@ -185,6 +186,7 @@ imsg input<OOOOOO\0>got 6 characters
 site5#
 ```
 
+The `-x7` flag turns on debugging; it's not normally used in production.
 Now go to *site6* and run a similar command to forward the e-mail to
 *site7*:
 
@@ -223,7 +225,7 @@ Hello there
 
 # Automating uucp Connections
 
-You can edit `/usr/lib/crontab` to have entries that run uucico for each site
+You can edit `/usr/lib/crontab` to have entries that run *uucico* for each site
 that you connection to. Here is an example line that connects to *site6*
 every minute:
 
@@ -237,13 +239,17 @@ The system has to dedicate a */dev/tty0x* device for each outbound uucp
 connection. If you have this situation, read through the 
 [tcpdial](Docs/Tcpdial.md) documentation for a solution.
 
-# 
-
 # Setting up News
 
 The *buildimg* script will configure your system to be ready to run C News,
 but you need to set up some cron jobs to actually make it happen. Read
 through the [C News documentation](Docs/Cnews_setup.md) to see how to do this.
+
+# Other Applications
+If you want to install other applications, you'll have to find them, compile them
+and install them. There is an archive of applications already configured at
+<http://www.tuhs.org/Uucp/43BSD_Apps>. You might also want to look at an archive of
+the [http://ftp.acc.umu.se/mirror/archive/ftp.sunet.se/pub/doc/usenet/ftp.uu.net/comp.sources.unix/](comp.sources.unix) Usenet postings.
 
 # Security
 The *tty* lines are exposed to the Internet through the bound TCP port, so
@@ -302,7 +308,7 @@ import the [uucp.map](uucp.map) file into your system. Read through the
 
 If you telnet into one of your sites, you will see garbage instead of
 a nice `login:` prompt. This is because I had to set the DZ simulated
-lines in 8-bit mode, as this is needed by uucp. However, type in `root`
+lines in 8-bit mode, as this is needed by *uucp*. However, type in `root`
 and Return and you will log in.
 
 We need to find a way in SimH to set the uucp lines in 8-bit mode but the
@@ -311,4 +317,6 @@ the getty lines. Anybody have any ideas on this?
 
 # Joining the Growing UUCP Network
 
-If you are interested in joining, then e-mail Warren Toomey.
+If you are interested in joining this simulation of the 1980s *uucp* network, then send
+some e-mail to Warren Toomey. Indicate what historical *uucp* site(s) you want to run
+and which other sites you want to connect to.
