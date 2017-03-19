@@ -1,6 +1,6 @@
 # Installing and Configuring Pathalias and Smail 2.5
 
-*This assumes that you have a 4.3BSD SimH image without /bin/smail*
+*This assumes that you have a 4.3BSD SimH image without /bin/smail*.
 
 *Smail* and *pathalias* allow you to send email without long bangpaths.
 You can do `echo hello | mail munnari!wkt` instead of
@@ -37,16 +37,26 @@ ln /bin/smail /bin/rmail
 
 Edit the *sendmail.cf* file and put in your uucp site's name and the
 list of machines that you can directly connect with uucp. Below are
-the lines for site *munnari* which only connects to *decvax*.
+the lines for site *seismo*.
 
 ```
-# UUCP hostname
-Cwmunnari
-DUmunnari
-CUmunnari
+...
+# $A is another domain for which this host is 'authoritative'
+# it will will be turned into $D.
 
-# UUCP hosts that we talk to
-CWdecvax
+Dwseismo
+DDuucp
+CDUUCP seismo.uucp
+
+# Preemptive ether connections.  We prefer these connections
+...
+```
+
+Also fix up the *Mlocal* line as follows:
+
+```
+Mlocal, P=/bin/mail, F=rlsDFMmn, S=10, R=20, A=mail -d $u
+Mprog,  P=/bin/sh,   F=lsDFMe,   S=10, R=20, A=sh -c $u
 ```
 
 Now replace the existing *sendmail.cf* with this one, keeping a
