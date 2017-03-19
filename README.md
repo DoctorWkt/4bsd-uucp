@@ -9,7 +9,7 @@ You will need the *bsdtar* program installed so that tarballs compatible with
 add instructions for other systems? The source for bsdtar is at
 [http://www.libarchive.org/]*
 
-Download the SimH Github repository at ]https://github.com/simh/simh].
+Download the SimH Github repository at [https://github.com/simh/simh].
 In your local copy, build a vax780 SimH binary and copy the resulting binary
 somewhere useful:
 
@@ -294,7 +294,7 @@ have to send e-mail to `site1!site2!site3!site4!site5!site6!user`.
 
 The *smail* and *pathalias* extensions help you overcome this problem, but
 you need to do a bit of configuration. Most importantly, you need to
-import the [uucp.map] file into your system. Read through the
+import the [uucp.map](uucp.map) file into your system. Read through the
 [Smail and Pathalias](Docs/Smail_configuration.md) for more details.
 
 
