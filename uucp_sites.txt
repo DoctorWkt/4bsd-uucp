@@ -1,7 +1,7 @@
 Site: i2unix
 Contact: Jacob Goense
-TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+TCP Hostname/port: i2unix.eunet.it:2530
+Connects-to: mcvax
 
 Site: munnari
 Contact: Warren Toomey

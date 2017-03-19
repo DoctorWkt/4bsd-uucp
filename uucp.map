@@ -127,7 +127,7 @@ lanl	cmcl2(DIRECT)
 #W	mcvax!piet 850103
 #I	Jacob Goense; mcvax.eunet.it:20333
 #
-mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT)
+mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT), i2unix(DIRECT)
 
 #N	ukc
 #S	VAX11/780, 4.2BSD
@@ -155,7 +155,7 @@ ukc	mcvax(DIRECT)
 #U        bpb, crai, crcc, enidbo, esacs, ic8u74, imiucca, intecs, irst
 #U        romaint, sarinit, semto, strhold, unirel
 #W        i2unix!ab 880201
-#I	  Jacob Goense
+#I	  Jacob Goense; i2unix.eunet.it:2530
 #
 #i2unix = italy.eu.net
 #
