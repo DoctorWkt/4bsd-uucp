@@ -5,9 +5,9 @@ nodes via TCP links.
 
 # Installation
 You will need the *bsdtar* program installed so that tarballs compatible with
-4.3BSD can be installed. On Ubuntu, `sudo apt-get install bsdtar`. Can someone
+4.3BSD can be installed. On Ubuntu, `sudo apt-get install bsdtar`. *Can someone
 add instructions for other systems? The source for bsdtar is at
-http://www.libarchive.org/
+http://www.libarchive.org/*
 
 Download the SimH Github repository at https://github.com/simh/simh.
 In your local copy, build a vax780 SimH binary and copy the resulting binary
@@ -25,8 +25,8 @@ program:
 cc -o mktape mktape.c
 ```
 
-You will see the generic 4.3BSD SimH image, `rq.dsk.gz`. The `buildimg`
-script builds a tar for each uucp system with the specific changes for that
+You will see the generic 4.3BSD SimH image, `rq.dsk.gz`. The `buildimg` script
+builds a tarball for each uucp system with the specific changes for that
 system.
 
 As an example, look at the `site_generate` script:
@@ -101,7 +101,8 @@ site5#
 ```
 
 Repeat the process for the other sites, e.g. *site6* and *site7*.
-**SET ROOT PASSWORDS NOW!!**
+**SET ROOT PASSWORDS NOW!!** It is a good idea to reboot your simulated
+system, as this will pick up the new kernel from the tarball.
 
 # Sending E-mail
 
@@ -115,11 +116,30 @@ echo Hello there | mail site6\!site7\!root
 You should be able to work out the bangpaths to send e-mails on the other
 systems.
 
+# Testing Your Serial Links
+
+Before you try to do a uucp connection, you can check if you have a working
+serial link with a remote uucp site. In your simulated 4.3BSD system, edit
+the *dialer* line in */etc/remote* to say:
+
+```sh
+dialer:dv=/dev/tty00:br#9600:
+```
+
+Now try:
+
+```sh
+# tip dialer
+```
+
+which should connect out over */dev/tty00* to the remote uucp site via the
+TCP connection. Hit Return a few times to see if there is any response. On your
+host system, do `netstat -a | grep ESTAB` and see if there is a TCP connection
+to the remote system. To get out of tip, type in the two characters `~.`
+
 # Performing UUCP Connections
 
-Right now, I haven't set up any cron jobs to periodically make uucp
-connections, so here is how to perform a manual uucp connection.
-On *site5*, to call *site6*:
+Here is how to perform a manual uucp connection. On *site5*, to call *site6*:
 
 ```sh
 # /usr/lib/uucp/uucico -r1 -ssite6 -x7
@@ -202,6 +222,7 @@ Hello there
 ```
 
 # Automating uucp Connections
+
 You can edit `/usr/lib/crontab` to have entries that run uucico for each site
 that you connection to. Here is an example line that connects to *site6*
 every minute:
@@ -210,57 +231,19 @@ every minute:
 * * * * * /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
-# Testing against an External System
-I've set up a simulated *decvax* at *simh.tuhs.org* port 5000. If you want to
-try sending e-mail to this system, here is what you can do. In your SimH .ini
-file, put (or change) this line to say:
+# Dealing with Multiple Outbound Connections
 
-```sh
-attach dz line=0,Connect=simh.tuhs.org:5000
-```
+The system has to dedicate a */dev/tty0x* device for each outbound uucp
+connection. If you have this situation, read through the 
+[tcpdial][Docs/Tcpdial.md] documentation for a solution.
 
-which will connect */dev/tty00* to *simh.tuhs.org* port 5000. Then in your
-simulated 4.3BSD system, edit the *dialer* line in */etc/remote* to say:
+# 
 
-```sh
-dialer:dv=/dev/tty00:br#9600:
-```
+# Setting up News
 
-Now try:
-
-```sh
-# tip dialer
-```
-
-which should connect out over */dev/tty00* to *decvax* via the TCP connection.
-Hit Return a few times to see if there is any response. On your host system,
-do `netstat -a | grep ESTAB` and see if there is a TCP connection to
-*simh.tuhs.org:5000*. To get out of tip, type in the two characters `~.`
-
-To send mail to *decvax!root*, you need to do a few extra things. Set up your
-*/usr/lib/uucp/L.sys* file with a line that says:
-
-```sh
-decvax Any;9 DIR 9600 tty00 "" "" ogin:--ogin:--ogin: uucp ssword: uucp
-```
-
-so that the uucp site *decvax* can be contacted via */dev/tty00*. Edit your
-*/usr/lib/sendmail.cf* with an extra line that identifies *decvax* as a remote
-site:
-
-```sh
-CWdecvax                 (near the other CW lines)
-```
-
-Then you can try doing:
-
-```sh
-# echo hello there | mail decvax\!root
-  <wait a few seconds>
-# /usr/lib/uucp/uucico -r1 -decvax -x7
-```
-
-and you should see the debug information with parts of the uucp conversation.
+The *buildimg* script will configure your system to be ready to run C News,
+but you need to set up some cron jobs to actually make it happen. Read
+through the [C News documentation][Docs/Cnews_setup.md] to see how to do this.
 
 # Security
 The *tty* lines are exposed to the Internet through the bound TCP port, so
@@ -273,6 +256,11 @@ where you ran `vax780 system.ini`. It is a good idea to add a non-root user
 so that you can telnet in on the TCP port: *only do this on localhost, as
 the telnet session is not encrypted*. If you add this non-root user to the
 group *wheel* (in `/etc/group`), then you can `su` and become root.
+
+Make sure that you are running the kernel from the *buildimg*-created tarball:
+you will see *munnari ... 2017* as the kernel boots. The *tty* lines in the
+new kernel are set to kill off running shells when an incoming telnet
+session is closed or disconnects unexpectedly.
 
 # Disabling the Telnet Protocol
 
@@ -298,8 +286,20 @@ attach dz -a -m line=0,Connect=127.0.0.1:6000
 attach dz -a -m line=1,5001;notelnet
 attach dz -a -m 5000
 ```
+# Dealing with Long Bangpaths
+
+As it stands, the image has a vanilla mail over uucp configuration. This
+means that, if you want to send e-mail to someone six uucp hops away, you
+have to send e-mail to `site1!site2!site3!site4!site5!site6!user`.
+
+The *smail* and *pathalias* extensions help you overcome this problem, but
+you need to do a bit of configuration. Most importantly, you need to
+import the [uucp.map] file into your system. Read through the
+[Smail and Pathalias][Docs/Smail_configuration.md] for more details.
+
 
 # Notes and Gotchas
+
 If you telnet into one of your sites, you will see garbage instead of
 a nice `login:` prompt. This is because I had to set the DZ simulated
 lines in 8-bit mode, as this is needed by uucp. However, type in `root`
@@ -309,10 +309,6 @@ We need to find a way in SimH to set the uucp lines in 8-bit mode but the
 getty lines in 7-bit mode. Alternatively, in 4.3BSD, to set no parity on
 the getty lines. Anybody have any ideas on this?
 
-# What Next?
+# Joining the Growing UUCP Network
 
-This all got thrown together in a couple of days, so feel free to
-make suggestions or improvements. The next thing is to get C-News
-and a newsreader working on these systems. Then, to get a bunch of people
-to host simulated uucp sites so that we can recreate a semblance of
-the uucp network that existed in the 1980s.
+If you are interested in joining, then e-mail Warren Toomey.
