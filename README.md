@@ -7,9 +7,9 @@ nodes via TCP links.
 You will need the *bsdtar* program installed so that tarballs compatible with
 4.3BSD can be installed. On Ubuntu, `sudo apt-get install bsdtar`. *Can someone
 add instructions for other systems? The source for bsdtar is at
-http://www.libarchive.org/*
+[http://www.libarchive.org/]*
 
-Download the SimH Github repository at https://github.com/simh/simh.
+Download the SimH Github repository at ]https://github.com/simh/simh].
 In your local copy, build a vax780 SimH binary and copy the resulting binary
 somewhere useful:
 
@@ -235,7 +235,7 @@ every minute:
 
 The system has to dedicate a */dev/tty0x* device for each outbound uucp
 connection. If you have this situation, read through the 
-[tcpdial][Docs/Tcpdial.md] documentation for a solution.
+[tcpdial](Docs/Tcpdial.md) documentation for a solution.
 
 # 
 
@@ -243,7 +243,7 @@ connection. If you have this situation, read through the
 
 The *buildimg* script will configure your system to be ready to run C News,
 but you need to set up some cron jobs to actually make it happen. Read
-through the [C News documentation][Docs/Cnews_setup.md] to see how to do this.
+through the [C News documentation](Docs/Cnews_setup.md) to see how to do this.
 
 # Security
 The *tty* lines are exposed to the Internet through the bound TCP port, so
@@ -295,7 +295,7 @@ have to send e-mail to `site1!site2!site3!site4!site5!site6!user`.
 The *smail* and *pathalias* extensions help you overcome this problem, but
 you need to do a bit of configuration. Most importantly, you need to
 import the [uucp.map] file into your system. Read through the
-[Smail and Pathalias][Docs/Smail_configuration.md] for more details.
+[Smail and Pathalias](Docs/Smail_configuration.md) for more details.
 
 
 # Notes and Gotchas
