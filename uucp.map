@@ -160,3 +160,16 @@ ukc	mcvax(DIRECT)
 #i2unix = italy.eu.net
 #
 i2unix	mcvax(DIRECT)
+
+#N      zilog
+#S      VAX 11/780, 4.3 BSD
+#O      Zilog
+#C      Richard Schneider
+#E      zilog!rik
+#T      (408) 370-xxxx
+#P      1314 Dell Ave, Campbell, CA 95008
+#L      Lat. 37deg. 16' 3.8244" N, Long. -121deg. 57' 14.3496" E
+#R
+#I      Rik Schneider (zilog!rik); wo0ki.asuscomm.com:5000
+#
+zilog   ucbvax(HOURLY/6)
