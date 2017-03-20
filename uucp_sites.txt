@@ -103,12 +103,16 @@ Connects-to: as yet unknown
 Site: philabs
 Contact: Warren Toomey
 TCP Hostname/port: simh.tuhs.org:5500
-Connects-to: decvax, seismo, mcvax
+Connects-to: decvax, seismo, mcvax. Historically: allegra, bellcore, cbosgd,
+	cmcl2, cornell, decvax, gatech, ihnp4, princeton, research, rutgers,
+	uunet, yale
 
 Site: seismo
 Contact: Warren Toomey
 TCP Hostname/port: minnie.tuhs.org:5500
-Connects-to: philabs, cmc12
+Connects-to: philabs, cmc12. Historically: allegra, cbosgd, decvax, gatech,
+	harpo, ihnp4, philabs, princeton, research, rochester, harvard,
+	uwvax, columbia
 
 Site: pyramid
 Contact: William Pechter
