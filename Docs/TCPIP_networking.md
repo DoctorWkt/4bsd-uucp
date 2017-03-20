@@ -47,10 +47,10 @@ write_enable=YES
 Here's a capture of the working ftp session:
 
 ```
-$ ftp mythbox
-Connected to mythbox.
+$ ftp fred
+Connected to fred.
 220 (vsFTPd 2.3.5)
-Name (mythbox:wkt): 
+Name (fred:wkt): 
 331 Please specify the password.
 Password:
 230 Login successful.
