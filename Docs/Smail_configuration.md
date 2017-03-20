@@ -134,4 +134,4 @@ mcvax: 1 job, 431 bytes, 0.1 minutes (@ effective baudrate of 840)
 There seems to be a bug in *pathalias* which makes it produce huge cost values (in the order or millions). This causes *smail* to think that the remote site is unreachable. If you see a very large cost in `/usr/lib/uucp/paths`, then edit it back down to 1000.
 
 `/usr/local/bin/pathproc` is a shell script with a pipeline across multiple lines.
-It needs some backslash `\\` characters on a couple of lines to join the lines up.
+It needs some backslash `'\'` characters on a couple of lines to join the lines up.
