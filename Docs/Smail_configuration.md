@@ -6,7 +6,7 @@ You can do `echo hello | mail munnari!wkt` instead of
 
 # Installing Pathalias
 
-Download *pathalias_src_bins.tar.gz* and *smail2.5_src_bins.tar.gz*
+Download *pathalias_v10_src_bins.tar.gz* and *smail2.5_src_bins.tar.gz*
 from <http://www.tuhs.org/Uucp/43BSD_Apps/Historical/>.
 Use *mktape* on the outside, then *mt rew* and *tar vxf /dev/rmt12*
 on the inside to get them into your 4.3BSD system.
