@@ -45,7 +45,7 @@ As an example, look at the `site_generate` script:
 port 6000, and *site7* and TCP port 7000.
 
 *site5* has a (simulated) hard-wired serial connection to *site6* through
-TCP port 6000. The syntax allows site6 to be on a remote computer, e.g.
+TCP port 6000. The syntax allows *site6* to be on a remote computer, e.g.
 available through www.somewhere.com:6000.
 
 *site6* has a (simulated) hard-wired serial connection to *site5* and *site7*.
@@ -230,7 +230,7 @@ that you connection to. Here is an example line that connects to *site6*
 every minute:
 
 ```sh
-* * * * * /usr/lib/uucp/uucico -r1 -ssite6
+* * * * * uucp /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
 # Dealing with Multiple Outbound Connections
