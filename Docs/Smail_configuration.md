@@ -1,7 +1,5 @@
 # Installing and Configuring Pathalias and Smail 2.5
 
-*This assumes that you have a 4.3BSD SimH image without /bin/smail*.
-
 *Smail* and *pathalias* allow you to send email without long bangpaths.
 You can do `echo hello | mail munnari!wkt` instead of
 `echo hello | mail philabs!decvax!munnari!wkt`
@@ -9,7 +7,7 @@ You can do `echo hello | mail munnari!wkt` instead of
 # Installing Pathalias
 
 Download *pathalias_src_bins.tar.gz* and *smail2.5_src_bins.tar.gz*
-from [https://github.com/DoctorWkt/4bsd-uucp/tree/4.3BSD/Tarballs].
+from <http://www.tuhs.org/Uucp/43BSD_Apps/Historical/>.
 Use *mktape* on the outside, then *mt rew* and *tar vxf /dev/rmt12*
 on the inside to get them into your 4.3BSD system.
 
@@ -71,7 +69,7 @@ cp sendmail.cf /usr/lib/sendmail.cf
 # Running Pathalias and Pathproc
 
 Download the *uucp.map* file from
-[https://github.com/DoctorWkt/4bsd-uucp/blob/4.3BSD/uucp.map].
+<https://github.com/DoctorWkt/4bsd-uucp/blob/4.3BSD/uucp.map>.
 You can either do the *mktape, mt rew tar xf* dance, or you can just 
 manually save a text file with the lines without hashes. For example,
 you might have a */tmp/map* file that looks like this:
