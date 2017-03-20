@@ -48,6 +48,16 @@ Contact: Cory Smelosky
 TCP Hostname/port: sj.gewt.net:5000
 Connects-to: zilog, decvax
 
+Site: cae780
+Contact: Cory Smelosky
+TCP Hostname/port: as yet unknown
+Connects-to: ucbvax
+
+Site: decwrl
+Contact: Cory Smelosky
+TCP Hostname/port: as yet unknown
+Connects-to: decvax, ihnp4, ucbvax, pyramid
+
 Site: uwvax
 Contact: Larry McVoy
 TCP Hostname/port: as yet unknown
