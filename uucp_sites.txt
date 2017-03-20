@@ -21,7 +21,8 @@ Connects-to: decvax, cbosgd
 Site: gatech
 Contact: Arnold Robbins
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: historically: seismo, emory, skeeve, allegra, cbosgd,
+	decvax, hplabs, ihnp4, philabs, princeton, research, tektronix
 
 Site: nocrew
 Contact: Lars Brinkhoff
@@ -31,7 +32,7 @@ Connects-to: as yet unknown
 Site: utzoo
 Contact: Dave Horsfall
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: historically: allegra, decvax, duke, ihnp4, research, watmath
 
 Site: zilog
 Contact: Rik Schneider
@@ -61,12 +62,13 @@ Connects-to: decvax, ihnp4, ucbvax, pyramid
 Site: uwvax
 Contact: Larry McVoy
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: historically: allegra, bellcore, ihnp4, seismo, harvard,
+	rutgers, ucbvax
 
 Site: research
 Contact: Norman Wilson
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: as yet unknown, see other entries
 
 Site: lanl
 Contact: John Floren
@@ -86,12 +88,12 @@ Connects-to: as yet unknown
 Site: columbia
 Contact: Dan Cross
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: as yet unknown, historically rutgers
 
 Site: cbosgd
 Contact: Mary Ann Horton
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: historically: amdahl, hplabs, seismo
 
 Site: lemis
 Contact: Greg Lemis
@@ -111,9 +113,16 @@ Connects-to: philabs, cmc12
 Site: pyramid
 Contact: William Pechter
 TCP Hostname/port: as yet unknown
-Connects-to: as yet unknown
+Connects-to: historically: allegra, decwrl, sri-unix
 
 Site: pirates
 Contact: James B DiGriz
 TCP Hostname/port: as yet unknown
 Connects-to: gatech, although emory would be more historically accurate
+
+Site: allegra
+Contact: mobody yet, but it seems to be one we could use
+TCP Hostname/port: as yet unknown
+Connects-to: decvax, philabs, cornell, rochester, tektronix, utzoo, watmath
+	(or more precisely, they connect to allegra; I can't find a #N
+	 record on-line for allegra to see which sites it dials)
