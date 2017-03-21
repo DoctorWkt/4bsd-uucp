@@ -46,12 +46,29 @@ decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT)
 #
 ucbvax	decvax(DIRECT)
 
-#N      ihnp4
-#S      Vax 780; 4.3BSD
-#O      Indian Hill Network Processing 4
-#C      Warren Toomey
-#E      ihnp!wkt
-#I	Warren Toomey (ihnp4!wkt); minnie.tuhs.org:5000
+#N        ihnp4
+#S        AT&T 3B20S, UNIX SV_R2p
+#O        AT&T Bell Laboratories, Indian Hill (IH) 45262
+#C        Kathy R. Andrews (IH 1C-220)
+#E        ihnp4!action
+#T        (312)979-4075
+#P        Naperville-Wheaton Rd.;Naperville, IL 60566
+#L        41 47 N / 88 09 W
+#R        Kathy Andrews <ihnp4!action> (for AT&T mail gateway)
+#R        Peter Madany <ihnp4!netnews> (for netnews)
+#R        Mark Schwenk <ihnp4!schwenk> (site admin)
+#R        Gary Murakami <ihnp4!gjm> (ihnp4-wizard emeritus)
+#U        alberta cbatt chinet cuae2 cuuxc drutx gargoyle houxm
+#U        hrcca ih1ap iham1 iham3 ihdba ihdev ihelp
+#U        ihlpa ihlpf ihlpg ihlpl ihlpm ihlts ihmax ihn5l
+#U        ihnet ihnp1 ihnp3 ihopa ihopb ihps2 ihtnt ihtpa
+#U        ihu1e ihu1g ihu1h ihu1j ihu1m ihu1n ihuxa ihuxb
+#U        ihuxe ihuxf ihuxh ihuxi ihuxk ihuxl ihuxm ihuxn
+#U        ihuxo ihuxp ihuxw ihuxx ihuxy ihwpt inuxc invest
+#U        iwsak iwsam iwsl2 iwsl4 ixhte laidbak mhuxn nwuxg
+#U        qantel stolaf tellab5 uniq
+#W        861022 ihnp4!action
+#I	  Warren Toomey (ihnp4!wkt); minnie.tuhs.org:5000
 #
 ihnp4	decvax(DIRECT), cbosgd(DIRECT)
 
