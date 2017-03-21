@@ -3,6 +3,11 @@ Contact: Jacob Goense
 TCP Hostname/port: i2unix.eunet.it:2530
 Connects-to: mcvax
 
+Site: mcvax
+Contact: Jacob Goense
+tCP Hostname/port: mcvax.eunet.it:20333
+Connects-to: ukc, decvax, philabs, seismo, i2unix
+
 Site: munnari
 Contact: Warren Toomey
 TCP Hostname/port: behind a NAT device
@@ -83,7 +88,8 @@ Connects-to: seismo, lanl
 Site: kremvax
 Contact: Kurt H Maier
 TCP Hostname/port: wopr.sciops.net:5000
-Connects-to: as yet unknown
+Connects-to: as yet unknown. Historically, the 1984 April Fool's post had
+		mcvax!moskvax!kremvax
 
 Site: columbia
 Contact: Dan Cross
@@ -125,7 +131,7 @@ TCP Hostname/port: as yet unknown
 Connects-to: gatech, although emory would be more historically accurate
 
 Site: allegra
-Contact: mobody yet, but it seems to be one we could use
+Contact: Grant Taylor
 TCP Hostname/port: as yet unknown
 Connects-to: decvax, philabs, cornell, rochester, tektronix, utzoo, watmath
 	(or more precisely, they connect to allegra; I can't find a #N
