@@ -34,6 +34,7 @@ In your simulated 4.3BSD, you might want to add some hostnames to your
 
 ```
 10.10.1.8       fred fred.local.net
+45.79.103.53    minnie minnie.tuhs.org
 ```
 
 Now set up an ftp server on your host machine. I used vsftp. I
