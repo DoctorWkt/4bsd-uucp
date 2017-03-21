@@ -13,7 +13,7 @@ Download the SimH Github repository at <https://github.com/simh/simh>.
 In your local copy, build a vax780 SimH binary and copy the resulting binary
 somewhere useful:
 
-```sh
+```
 make vax780
 sudo cp BIN/vax780 /usr/local/bin
 ```
@@ -21,7 +21,7 @@ sudo cp BIN/vax780 /usr/local/bin
 Download this Github repository. In this repository, compile the mktape
 program:
 
-```sh
+```
 cc -o mktape mktape.c
 ```
 
@@ -31,7 +31,7 @@ system.
 
 As an example, look at the `site_generate` script:
 
-```sh
+```
 # An example of three uucp sites connected in series
 #
 #    site5 ----- site6 ----- site7
@@ -60,7 +60,7 @@ For each site, there are two files generated:
 We also need to copy the generic disk image `rq.dsk.gz` to be the disk
 for each site:
 
-```sh
+```
 zcat rq.dsk.gz | dd conv=sparse > site5.dsk
 zcat rq.dsk.gz | dd conv=sparse > site6.dsk
 zcat rq.dsk.gz | dd conv=sparse > site7.dsk
@@ -74,7 +74,7 @@ and this saves disk space for these files.
 Once you have a disk, a config file and the customisation tape, here is
 how you customise the system. Boot up the system:
 
-```sh
+```
 vax780 site5.ini
 ```
 
@@ -82,7 +82,7 @@ At the `login:` prompt, login as *root* with no password. At the shell prompt,
 read in and unpack the tarball, and run a script which sets appropriate
 file permissions:
 
-```sh
+```
 myname# tar xf /dev/rmt12
 tar: blocksize = 1
 myname# ./mkdirs
@@ -95,7 +95,7 @@ erase ^?, kill ^U, intr ^C
 Type a ctrl-D to restart in multi-user mode and login as *root*.
 Your system now has a hostname:
 
-```sh
+```
 login: root
 Last login: Wed Mar  7 10:52:10 on console
 You have mail.
@@ -112,7 +112,7 @@ system, as this will pick up the new kernel from the tarball.
 On *site5* you can send e-mail to `site6!root` and `site6!site7!root`.
 Watch out for escaping the bang characters as the shell is *csh*, e.g.
 
-```sh
+```
 echo Hello there | mail site6\!site7\!root
 ```
 
@@ -126,13 +126,13 @@ Before you try to do a uucp connection, you can check if you have a working
 serial link with a remote uucp site. In your simulated 4.3BSD system, edit
 the *dialer* line in */etc/remote* to say:
 
-```sh
+```
 dialer:dv=/dev/tty00:br#9600:
 ```
 
 Now try:
 
-```sh
+```
 # tip dialer
 ```
 
@@ -145,7 +145,7 @@ to the remote system. To get out of *tip*, type in the two characters `~.`
 
 Here is how to perform a manual uucp connection. On *site5*, to call *site6*:
 
-```sh
+```
 # /usr/lib/uucp/uucico -r1 -ssite6 -x7
 root site6 (3/9-06:27-166) DEBUG (Local Enabled)
 finds (site6) called
@@ -193,13 +193,13 @@ The `-x7` flag turns on debugging; it's not normally used in production.
 Now go to *site6* and run a similar command to forward the e-mail to
 *site7*:
 
-```sh
+```
 # /usr/lib/uucp/uucico -r1 -ssite7 -x7
 ```
 
 On *site7*, you can now read your e-mail:
 
-```sh
+```
 site7# mail
 Mail version 2.18 5/19/83.  Type ? for help.
 "/usr/spool/mail/root": 3 messages 3 new
@@ -232,7 +232,7 @@ You can edit `/usr/lib/crontab` to have entries that run *uucico* for each site
 that you connection to. Here is an example line that connects to *site6*
 every minute:
 
-```sh
+```
 * * * * * uucp /usr/lib/uucp/uucico -r1 -ssite6
 ```
 
@@ -261,7 +261,10 @@ specific IP addresses.
 
 The tty lines are set as insecure in the 4.3BSD `/etc/ttys`, so they won't
 allow root logins. You can only login as root on the console, i.e. the place
-where you ran `vax780 system.ini`. It is a good idea to add a non-root user
+where you ran `vax780 system.ini`. You should probably do this in a *tmux*
+or *screen* session, so that you can get back to the 4.3BSD console easily.
+
+It is a good idea to add a non-root user
 so that you can telnet in on the TCP port: *only do this on localhost, as
 the telnet session is not encrypted*. If you add this non-root user to the
 group *wheel* (in `/etc/group`), then you can `su` and become root.
@@ -284,7 +287,7 @@ You will still want some of your simulated tty lines doing Telnet, so that you c
 into your simulated 4.3BSD system and have your password hidden. Here is an example
 SimH configuration file with Telnet disabled.
 
-```sh
+```
 # Set up eight DZ serial ports in 8-bit mode.
 # Connect to a remote uucp site on 127.0.0.1:6000
 # Listen on TCP port 5001 with Telnet disabled
@@ -309,14 +312,7 @@ import the [uucp.map](uucp.map) file into your system. Read through the
 
 # Notes and Gotchas
 
-If you telnet into one of your sites, you will see garbage instead of
-a nice `login:` prompt. This is because I had to set the DZ simulated
-lines in 8-bit mode, as this is needed by *uucp*. However, type in `root`
-and Return and you will log in.
-
-We need to find a way in SimH to set the uucp lines in 8-bit mode but the
-getty lines in 7-bit mode. Alternatively, in 4.3BSD, to set no parity on
-the getty lines. Anybody have any ideas on this?
+At present, none!
 
 # Joining the Growing UUCP Network
 
