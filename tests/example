@@ -31,9 +31,9 @@ cat >test.ini <<"__HERE"
 set env hostname=%1
 
 EXPECT -r -p "[^ ]login: " SEND AFTER=500000,DELAY=500000 "root\r" ;GO
-EXPECT "# " SEND "tar xf /dev/rmt12\r" ;GO
-EXPECT "# " SEND "./mkdirs\r" ;GO
-EXPECT "# " SEND "logout\r" ;GO
+EXPECT "myname# " SEND "tar xf /dev/rmt12\r" ;GO
+EXPECT "myname# " SEND "./mkdirs\r" ;GO
+EXPECT "^C" SEND "\x04" ;GO
 
 EXPECT "site5#" SEND "echo Hello there \x7C mail site6\x5C\x21site7\x5C\x21root \x3B sleep 60 \x3B /usr/lib/uucp/uucico -r1 -ssite6 -x7 \x3B shutdown -h now\r" ;GO
 EXPECT "site5#" QUIT
