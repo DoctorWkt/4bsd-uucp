@@ -72,3 +72,10 @@ local: id.c remote: id.c
 ftp> quit
 221 Goodbye.
 ```
+
+# Getting More Software
+
+Now that you have a working ftp client, you'll be happy to know that
+<http://www.tuhs.org/Uucp/43BSD_Apps> is also available at
+<ftp://www.tuhs.org/misc/43BSD_Apps> via anonymous ftp, i.e. login as
+user *ftp*, password anything with an *@* sign in it.

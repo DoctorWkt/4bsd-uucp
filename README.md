@@ -316,6 +316,77 @@ At present, none!
 
 # Joining the Growing UUCP Network
 
-If you are interested in joining this simulation of the 1980s *uucp* network, then send
-some e-mail to Warren Toomey. Indicate what historical *uucp* site(s) you want to run
-and which other sites you want to connect to.
+If you are interested in joining this simulation of the 1980s *uucp* network,
+then send some e-mail to Warren Toomey. Indicate what historical *uucp*
+site(s) you want to run and which other sites you want to connect to.
+
+If you don't know what historical site to choose, have a look at the maps here:
+<http://www.redace.org/html/logical_usenet_map_1984.html>
+
+If you have a specific historical site in mind, do a search on the site's
+name, e.g. "#N decvax", and include the double quotes; add the *uucp* keyword
+as well if you like. Look for the lines after the "#N decvax" without hash
+characters: they show you the connectivity that this site used to have.
+An example for *decvax*:
+
+```
+#N	decvax, decvax.dec.com
+#S	Vax 8300; Ultrix 32 V2.2
+#O	Digital Equipment Corp.
+#C	Larry Palmer
+#E	decvax!lp
+#T	(603)8848385
+#P	MK2-1/H10 Continental Blvd, Merrimack, NH 03054
+#L	42 49 N / 71 31 W
+#R	
+#W	
+#U	bellcore cca mandrill dartvax decwrl genrad gsg harpo ichaya 
+#U	linus mcnc savax tektronix ucbvax vortex yale
+#R	decvax has moved to a new location - an update is expected soon... -jj
+#
+# local calls
+decvax	bu-tyng(DIRECT), ichaya(DIRECT), savax(DIRECT), sequitor(DIRECT), 
+	shaman(DIRECT), sii(DIRECT), skippy(DIRECT), stellar(DIRECT)
+# Internet
+decvax  decwrl(DEDICATED), ucbvax(DEDICATED)
+#
+# frequent calls
+decvax	bellcore(HOURLY), cca(HOURLY), cg-atla(HOURLY), mandrill(HOURLY), 
+	deceds(HOURLY), decuac(HOURLY), genrad(HOURLY), granite(HOURLY), 
+	hanauma(HOURLY), ihnp4(HOURLY), lafite(HOURLY), 
+	linus(HOURLY), mcnc(HOURLY), mit-athena(HOURLY), netrix(HOURLY), 
+	tektronix(HOURLY), vortex(HOURLY), yale(HOURLY)
+#
+# non-prime time calls
+decvax	allegra(EVENING), astrovax(EVENING), bobo(EVENING), brunix(EVENING),
+	bunker(EVENING), cbosg(EVENING), cbosgd(EVENING), cincy(EVENING),
+	cornell(EVENING), cray(EVENING), duke(EVENING), emory(EVENING), 
+	encore(EVENING), esquire(EVENING), farance(EVENING), freeport(EVENING),
+	gatech(EVENING), hcr(EVENING), hermix(EVENING), hjuxa(EVENING), 
+	hplabs(EVENING), idis(EVENING), ima(EVENING),
+	masscomp(EVENING), microsoft(EVENING), mit-vax(EVENING), 
+	mtxinu(EVENING), netword(EVENING), philabs(EVENING), pur-ee(EVENING), 
+	purdue(EVENING), randvax(EVENING), research(EVENING), 
+	rochester(EVENING), sdcsvax(EVENING), sickkids(EVENING), std(EVENING), 
+	stolaf(EVENING), sun(EVENING), trwrb(EVENING), ucf-cs(EVENING), 
+	ulysses(EVENING), usenix(EVENING), utah-cs(EVENING), utzoo(EVENING), 
+	uw-beaver(EVENING), vax135(EVENING), watmath(EVENING)
+#
+# very long distance calls
+decvax	mulga(DAILY)
+#
+# incoming calls
+decvax	apollo(POLLED), attunix(POLLED), bbn(POLLED), bhjat(POLLED), 
+	brl-smoke(POLLED), chaos(POLLED), cvbnet(POLLED), dartvax(POLLED),
+	elrond(POLLED), epiwrl(POLLED), flkvax(POLLED), 
+	frog(POLLED), gsg(POLLED), harpo(POLLED), howtek(POLLED), 
+	humus(POLLED), jaxlab(POLLED), ll-xn(POLLED), mindcrft(POLLED), 
+	mkunix(POLLED), necntc(POLLED), nicmad(POLLED), noao(POLLED), 
+	nrl-css(POLLED), plato(POLLED), raster(POLLED), stcvax(POLLED), 
+	sunybcs(POLLED), tifsie(POLLED), unh(POLLED), virgin(POLLED), 
+	wang(POLLED)
+```
+
+For central sites (like *decvax*) that had a lot of connectivity, you will be
+expected to run them continuously. For edge sites which only dial in to one
+other site to exchange news and e-mail, you can run them whenever you want.
