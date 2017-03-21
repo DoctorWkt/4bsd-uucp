@@ -3,6 +3,11 @@
 name=`cat /etc/hostname`
 hostname $name
 
+# Replace getty
+mv /etc/getty /etc/ogetty
+mv /etc/ngetty /etc/getty
+chmod 755 /etc/getty
+
 # Add an editor to /.cshrc
 echo "setenv EDITOR /usr/ucb/vi" >> /.cshrc
 
@@ -31,8 +36,8 @@ done
 
 # Ensure that uucp owns the tty device files
 chown uucp /dev/tty0*
-kill -1 1
 
-# Get root to logout so we have our name seen by getty
-echo 'Now logout and login again'
+# Kill off all the gettys so that we get the new getty
+echo 'Type ctrl-D at the # prompt to restart things'
 rm -f /mkdirs
+kill -TERM 1

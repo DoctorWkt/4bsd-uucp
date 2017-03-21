@@ -42,9 +42,7 @@ system("mkdir -p etc usr/lib/uucp bin usr/include/sys sys/conf");
 
 # Personalise the hostname and overwrite the rc.local
 system("echo $hostname > etc/hostname");
-system("cp template/etc/rc.local etc/rc.local");
-system("cp template/etc/group etc/group");
-system("cp template/etc/passwd etc/passwd");
+system("cp template/etc/* etc");
 
 # Fix up some broken files
 system("cp template/usr/include/sys/types.h usr/include/sys/types.h");
