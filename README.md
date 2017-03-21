@@ -87,10 +87,13 @@ myname# tar xf /dev/rmt12
 tar: blocksize = 1
 myname# ./mkdirs
 29 password entries, maximum length 93
-Now logout and login again
+Type ctrl-D at the # prompt to restart things
+erase ^?, kill ^U, intr ^C
+#
 ```
 
-Logout (ctrl-D) and login as *root*. Your system now has a hostname:
+Type a ctrl-D to restart in multi-user mode and login as *root*.
+Your system now has a hostname:
 
 ```sh
 login: root
