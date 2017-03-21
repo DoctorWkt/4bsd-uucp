@@ -111,6 +111,10 @@ foreach my $server (@remoteserver) {
 print($OUT "att dz -m -a $hostport\n");
 
 print $OUT <<"HERE";
+# Enable NAT
+set xu enable
+att xu nat:
+#
 set rq0 ra81
 att rq0 $hostname.dsk
 att ts $hostname.tap

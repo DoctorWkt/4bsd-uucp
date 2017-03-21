@@ -1,5 +1,10 @@
 /bin/hostname `cat /etc/hostname`
 /etc/ifconfig en0 `hostname`
+#
+# Enable de0 for SimH
+/etc/ifconfig de0 10.0.2.4 netmask 255.255.255.0
+/etc/route add net 0.0.0.0 10.0.2.2 1
+#
 echo -n 'check quotas: '                                        >/dev/console
         /etc/quotacheck -a
 echo 'done.'                                                    >/dev/console
