@@ -136,3 +136,18 @@ TCP Hostname/port: as yet unknown
 Connects-to: decvax, philabs, cornell, rochester, tektronix, utzoo, watmath
 	(or more precisely, they connect to allegra; I can't find a #N
 	 record on-line for allegra to see which sites it dials)
+
+Site: gara
+Contact: Warren Toomey
+TCP Hostname/port: at home behind NAT
+Connects-to: munnari
+
+Site: kilowatt
+Contact: Arthur Krewat
+TCP Hostname/port: as yet unknown
+Connects-to: nyit
+
+Site: nyit
+Contact: Arthur Krewat
+TCP Hostname/port: as yet unknown
+Connects-to: philabs
