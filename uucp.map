@@ -205,3 +205,17 @@ zilog   ucbvax(HOURLY/6)
 #I	  Cory Smelosky; sj.gewt.net:5000
 #
 decwrl	  ucbvax(DIRECT)
+
+#N        gara.une.oz.au
+#S        Gould NP1-230; UTX 3.1u01
+#O        Computer Centre, Uni. of New England
+#C        Gordon Smith
+#E        postm...@gara.une.oz.au
+#T        +61 67 73 2287
+#P        Armidale, NSW 2351, Australia
+#L        30 29 20 S / 151 38 30 E
+#R        General research and teaching facility
+#U        gwydir.une.oz.au
+#W        gor...@gara.une.oz.au (Gordon Smith); Wed Mar  8 21:37:23 +1100 1989
+#I	  Warren Toomey (munnari!wkt); 192.168.1.2:5500
+gara	  munnari(DIRECT)
