@@ -190,3 +190,18 @@ i2unix	mcvax(DIRECT)
 #I      Rik Schneider (zilog!rik); wo0ki.asuscomm.com:5000
 #
 zilog   ucbvax(HOURLY/6)
+
+#N        decwrl
+#S        VAX-11/750 4.2BSD
+#O        Digital Equipment Corporation, Western Research Lab.
+#C        Carol Kiefer
+#E        decwrl!uucp, decwrl!usenet, decwrl!postmaster, decwrl!kiefer
+#T        +1 415 853 6670
+#P        100 Hamilton Ave. UCO-3, Palo Alto, CA 94301-1616
+#L        122 9 41 W / 37 26 35 N
+#R        Mail gateway to DEC ENET: ...!decwrl!dec-rhea!dec-host!user.
+#U        Glacier amdcad decvax greipa muscat pyramid spar sun
+#W        decwrl!johnsson (Richard Johnsson); Fri Oct 25 07:33:20 PDT 1985
+#I	  Cory Smelosky; sj.gewt.net:5000
+#
+decwrl	  ucbvax(DIRECT)
