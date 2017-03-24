@@ -2,6 +2,7 @@
 # Set up the hostname
 name=`cat /etc/hostname`
 hostname $name
+shortname=`echo $name | sed 's/^\(.......\).*/\1/'`
 
 # Replace getty
 mv /etc/getty /etc/ogetty
@@ -17,7 +18,7 @@ chown uucp.daemon L.sys; chmod 400 L-devices
 
 # Create spool directories for our system
 cd /usr/spool/uucp
-for i in D."$name"X D.$name
+for i in D."$shortname"X D.$shortname
 do mkdir $i; chown uucp.daemon $i; chmod 755 $i
 done
 
