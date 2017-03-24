@@ -219,3 +219,16 @@ decwrl	  ucbvax(DIRECT)
 #W        gor...@gara.une.oz.au (Gordon Smith); Wed Mar  8 21:37:23 +1100 1989
 #I	  Warren Toomey (munnari!wkt); 192.168.1.2:5500
 gara	  munnari(DIRECT)
+
+#N	tektronix
+#S	780/UNIX
+#O	Tektronix, Inc
+#C	Rick Lindsley
+#E	tektronix!postmaster tektronix!richl
+#T	(503) 641-2017
+#P	PO BOX 500, 97077
+#L	45 29 N / 122 48 W city
+#R	
+#W	richl 4/14/84
+#I	  Warren Toomey (tektronix!wkt); simh.tuhs.org:5600
+tektronix	ihnp4(DIRECT), decvax(DIRECT)
