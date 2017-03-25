@@ -151,3 +151,28 @@ Site: nyit
 Contact: Arthur Krewat
 TCP Hostname/port: as yet unknown
 Connects-to: philabs
+
+Site: ames
+Contact: Steven M Jones
+TCP Hostname/port: as yet unknown
+Connects-to:  think, decwrl
+
+Site: crash
+Contact: Steven M Jones
+TCP Hostname/port: as yet unknown
+Connects-to: as yet unknown
+
+Site: liable
+Contact: Steven M Jones
+TCP Hostname/port: as yet unknown
+Connects-to: think
+
+Site: mit-eddie
+Contact: Steven M Jones
+TCP Hostname/port: as yet unknown
+Connects-to: think, allegra
+
+Site: think
+Contact: Steven M Jones
+TCP Hostname/port: as yet unknown
+Connects-to: liable, ames, mit-eddie
