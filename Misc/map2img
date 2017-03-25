@@ -10,6 +10,7 @@ my %Conn;
 # Start the dot output
 open(my $OUT, "|-", "dot -Tpng -o uucp.png") || die("dot pipe failed: $!\n");
 print($OUT "strict graph {\n");
+print($OUT "  epsilon=4.0;\n");
 
 open(my $IN, "<", "uucp.map") || die("open uucp.map failed: $!\n");
 while (<$IN>) {
