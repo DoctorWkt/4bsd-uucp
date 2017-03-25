@@ -9,9 +9,10 @@ You will need the *bsdtar* program installed so that tarballs compatible with
 add instructions for other systems? The source for bsdtar is at
 <http://www.libarchive.org/>*
 
-You will also need a recent version of SimH. You can download the SimH Github
-repository at <https://github.com/simh/simh>. In your local copy, build a
-vax780 SimH binary and copy the resulting binary somewhere useful:
+You will also need a recent version of SimH: 4.0; version 3.9 doesn't work.
+You can download the SimH Github repository at <https://github.com/simh/simh>.
+In your local copy, build a vax780 SimH binary and copy the resulting binary
+somewhere useful:
 
 ```
 make vax780
