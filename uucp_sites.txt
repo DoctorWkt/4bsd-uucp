@@ -176,3 +176,8 @@ Site: think
 Contact: Steven M Jones
 TCP Hostname/port: as yet unknown
 Connects-to: liable, ames, mit-eddie
+
+Site: legacy
+Contact: Bill Gunshannon
+TCP Hostname/port: at home behind NAT
+Connects-to: probably philabs
