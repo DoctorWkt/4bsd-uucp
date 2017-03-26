@@ -12,7 +12,13 @@ open(my $OUT, "|-", "dot -Tpng -o uucp.png") || die("dot pipe failed: $!\n");
 print($OUT "strict graph {\n");
 print($OUT "  epsilon=4.0;\n");
 
-open(my $IN, "<", "uucp.map") || die("open uucp.map failed: $!\n");
+my $IN;
+if (@ARGV == 1) {
+  open($IN, "<", $ARGV[0]) || die("open $ARGV[0] failed: $!\n");
+} else {
+  open($IN, "<", "uucp.map") || die("open uucp.map failed: $!\n");
+}
+
 while (<$IN>) {
   chomp;
 
@@ -39,7 +45,7 @@ close($IN);
 foreach my $src (keys(%Conn)) {
   foreach my $dst (keys(%{$Conn{$src}})) {
       next if (!defined($Node{$dst}));
-      print($OUT "  $src -- $dst\n");
+      print($OUT "  \"$src\" -- \"$dst\"\n");
   }
 }
 
