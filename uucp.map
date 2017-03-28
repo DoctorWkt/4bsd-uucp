@@ -232,3 +232,21 @@ gara	  munnari(DIRECT)
 #W	richl 4/14/84
 #I	  Warren Toomey (tektronix!wkt); simh.tuhs.org:5600
 tektronix	ihnp4(DIRECT), decvax(DIRECT)
+
+#N	unido, laura, exunido
+#S	Siemens MX500; SINIX-FD 5.0A
+#O	Universitaet Dortmund, Informatik / IRB
+#F
+#C	Michael Pickers, Axel Pawlik, Andreas Toenne,
+#C	Bernard Steiner, Frank Wiesenfeller
+#E	postmaster@unido.uucp, postman@unido.bitnet
+#T	+49 231 755 2444
+#P	Postfach 500500, D-4600 Dortmund 50, W. Germany
+#L	51 29 N / 07 25 E
+#R	EUnet Backbone Germany, Help: unido!postmaster
+#R	via locally connected node exunido.uucp == unido.bitnet gateway for German uucp to EARN/BITNET etc.
+#U	ecrcvax, fauern, gmdzi, ifistg, infbs, konech, mcvax, pbinfo, pcsbst, phifo, quando, tub, uklirb, ztivax
+#W	ap@unido.uucp;	880329
+#I	Jacob Goense
+#
+unido	mcvax(DIRECT)
