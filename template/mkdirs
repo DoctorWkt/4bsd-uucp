@@ -25,6 +25,9 @@ done
 # Build the paths to the remote uucp sites that we know
 /usr/lib/uucp/mkpaths
 
+# Reconfigure sendmail
+/usr/lib/sendmail -bz
+
 # Set up our name for news
 cat /etc/hostname > /usr/lib/news/whoami
 cat /etc/hostname > /usr/lib/news/mailname

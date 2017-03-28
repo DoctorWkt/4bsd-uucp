@@ -243,6 +243,26 @@ The system has to dedicate a */dev/tty0x* device for each outbound uucp
 connection. If you have this situation, read through the 
 [tcpdial](Docs/Tcpdial.md) documentation for a solution.
 
+# Setting up Mail
+
+The mail system uses *pathalias* and *smail*, as well as *sendmail*.
+These allow you to send e-mail to a uucp site several hops away like this:
+
+```
+$ echo hello | mail user@site.uucp
+$ echo hello | mail site!user
+$ echo hello | mail long!bang!path!to!site!user
+```
+
+*smail* needs to derive a set of best paths to all the remote sites on the
+global uucp network. To do this, copy the [uucp.map](uucp.map) file into your
+system as the file `/usr/lib/uucp/uucp.map`. Then run the
+`/usr/lib/uucp/mkpaths` script to create the file `/usr/lib/uucp/paths`.
+This holds the best path to deliver mail to each site.
+
+If you see very high numbers, that's a *pathalias* bug. Edit the file
+and set the number down to e.g. 10000.
+
 # Setting up News
 
 The *buildimg* script will configure your system to be ready to run C News,
@@ -299,17 +319,6 @@ attach dz -a -m line=0,Connect=127.0.0.1:6000
 attach dz -a -m line=1,5001;notelnet
 attach dz -a -m 5000
 ```
-# Dealing with Long Bangpaths
-
-As it stands, the image has a vanilla mail over uucp configuration. This
-means that, if you want to send e-mail to someone six uucp hops away, you
-have to send e-mail to `site1!site2!site3!site4!site5!site6!user`.
-
-The *smail* and *pathalias* extensions help you overcome this problem, but
-you need to do a bit of configuration. Most importantly, you need to
-import the [uucp.map](uucp.map) file into your system. Read through the
-[Smail and Pathalias](Docs/Smail_configuration.md) for more details.
-
 
 # Notes and Gotchas
 
