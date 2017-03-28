@@ -250,3 +250,27 @@ tektronix	ihnp4(DIRECT), decvax(DIRECT)
 #I	Jacob Goense
 #
 unido	mcvax(DIRECT)
+
+#N	ames
+#I	Steven M Jones; need host:port number
+ames	decwrl(DIRECT)
+
+#N	think
+#S	DEC VAX-11/750; 4.3 BSD UNIX
+#O	Thinking Machines Corporation
+#C	Bill Nesheim
+#E	think!uucp
+#T	+1 617 876 1111
+#P	245 First Street, Cambridge, MA 02142-1214
+#L	42 21 49 N / 71 04 45 W
+#R
+#U	harvard bloom-beacon rutgers ames
+#U	eplunix fortytwo maynard mck-csc
+#W	think!bruce (Bruce Nemnich); Fri Jul  3 14:04:49 EDT 1987
+#I	Steven M Jones; need host:port number
+#
+think	ames(DIRECT)
+
+#N	liable
+#I	Steven M Jones; need host:port number
+liable	think(DIRECT)
