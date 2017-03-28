@@ -1,0 +1,2 @@
+#!/bin/sh
+pathalias -f /usr/lib/uucp/uucp.map | pathproc > /usr/lib/uucp/paths

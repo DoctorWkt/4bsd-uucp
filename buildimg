@@ -35,25 +35,16 @@ foreach my $i (@ARGV) {
 }
 
 # Remove any previous filesystem
-system("rm -rf etc usr mkdirs");
+system("rm -rf tmp");
 
 # Make the additional filesystem areas for the customised tarball
-system("mkdir -p etc usr/lib/uucp bin usr/include/sys sys/conf");
+system("rsync -a template/. tmp");
 
-# Personalise the hostname and overwrite the rc.local
-system("echo $hostname > etc/hostname");
-system("cp template/etc/* etc");
-
-# Fix up some broken files
-system("cp template/usr/include/sys/types.h usr/include/sys/types.h");
-system("cp template/bin/date bin/date");
-# Why cat? If I cp, we end up with a sparse file and
-# bsdtar puts weird things in the tarball
-system("cat template/vmunix >vmunix");
-system("cp template/sys/conf/GENERIC sys/conf");
+# Personalise the hostname
+system("echo $hostname > tmp/etc/hostname");
 
 # Create the ttys file
-open(my $OUT, ">", "etc/ttys") || die("etc/ttys: $!");
+open(my $OUT, ">", "tmp/etc/ttys") || die("tmp/etc/ttys: $!");
 print($OUT "console \"/etc/getty std.9600\"  unknown  on  secure\n");
 foreach my $i (0 .. 7) {
   if ($i < $remotecount) {
@@ -65,7 +56,7 @@ foreach my $i (0 .. 7) {
 close($OUT);
 
 # Generate the L.sys file
-open($OUT, ">", "usr/lib/uucp/L.sys") || die("usr/lib/uucp/L.sys: $!");
+open($OUT, ">", "tmp/usr/lib/uucp/L.sys") || die("tmp/usr/lib/uucp/L.sys: $!");
 my $i=0;
 foreach my $r (@remotename) {
   print($OUT "$r Any;9 DIR 9600 tty0$i \"\" \"\" " .
@@ -73,28 +64,24 @@ foreach my $r (@remotename) {
 }
 close($OUT);
 
-# Generate the uucp sendmail.cf
-open($OUT, ">", "usr/lib/sendmail.cf") || die("usr/lib/sendmail.cf: $!");
-print($OUT "# UUCP hostname\n");
-print($OUT "Cw$hostname\n");
-print($OUT "DU$hostname\n");
-print($OUT "CU$hostname\n\n");
-print($OUT "# UUCP hosts that we talk to\n");
+# Generate the uucp.map file
+open($OUT, ">", "tmp/usr/lib/uucp/uucp.map") || die("tmp/usr/lib/uucp/uucp.map: $!");
 foreach my $r (@remotename) {
-  print($OUT "CW$r\n");
+  print($OUT "$hostname	$r(DIRECT)\n");
 }
-print($OUT "\n");
 close($OUT);
 
-# Create the sendmail.cf file, and customise the mkdirs script
-system("cat template/usr/lib/sendmail.cf >> usr/lib/sendmail.cf");
+# Customise the sendmail.cf
+system("sed 's/HOSTNAME/$hostname/' < template/usr/lib/sendmail.cf > tmp/usr/lib/sendmail.cf");
+
+# Add the remote system names to the mkdirs script
 my $r= "remote=\\'" . join(' ', @remotename) . "\\'";
-system("echo $r > mkdirs; chmod 755 mkdirs");
-system("cat template/mkdirs >> mkdirs");
+system("echo $r > tmp/mkdirs; chmod 755 tmp/mkdirs");
+system("cat template/mkdirs >> tmp/mkdirs");
 
 # Build the tap image
-system("bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - mkdirs bin etc usr vmunix sys | ./mktape /dev/stdin > $hostname.tap");
-system("rm -rf etc usr mkdirs bin sys vmunix");
+system("(cd tmp; bsdtar -c --uid 0 --uname root --gid 0 --gname root -f - .) | ./mktape /dev/stdin > $hostname.tap");
+system("rm -rf tmp");
 
 # Generate the system's SimH config file
 open($OUT, ">", "$hostname.ini") || die("$hostname.ini: $!");

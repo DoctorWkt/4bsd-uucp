@@ -1,84 +1,74 @@
-
-#################################################
+############################################################
 #
-#	General configuration information
+#	SENDMAIL CONFIGURATION FILE
 #
-#	@(#)csbase.m4	4.3		8/21/83
+#	supports internet style addressing
+#	over UUCP and ethernet links.
 #
-#################################################
+#	A product of the UUCP Project.
+#
+#	@(#)template.cf	2.5 (smail) 9/15/87
+#
+############################################################
 
-######################
-#   General Macros   #
-######################
 
-# our arpanet gateway
-DABerkeley
-CABerkeley UCB ucbc70 c70 UCB-C70 u UCB-VAX ucbvax
+############################################################
+#
+#  Local configuration options - HINTS
+#
+# Host name and domain name macros.
+#
+#	Dw sets $w
+#	DD sets $D
+#	CD sets $=D
+#
+# $D and $=D list all domains in which this host sits.
+# $D goes into outbound addresses, i.e. "user@$w.$D".
+# $A is another domain for which this host is 'authoritative'
+# it will will be turned into $D.
 
-# local domain names
-DDBERKELEY
-CDBERKELEY UCB ucbc70 c70 ucb-c70 u UCB-VAX ucbvax
+DwHOSTNAME
+DDUUCP
+CDUUCP HOSTNAME.UUCP
 
-# major relay host
-DRUCBVAX
-CRucbvax vax k
+# Preemptive ether connections.  We prefer these connections 
+# over both designated transport mechanisms and the general depository.
+# You can add more classes (here and in S0).
 
-# my official hostname
-Dj$w.ARPA
+# /etc/hosts.smtp might be a link to /etc/hosts
+#
 
-# known SMTP/ethernet hosts (this domain only) -- only $R need be complete
-CSucbarpa arpa
-CSucbbach bach ucbstatvax statvax
-CSucbbrahms brahms mathstat
-CSucbcad cad cad-a
-CSucbcalder calder
-CSucbcartan cartan
-CSucbcory cory ucbokeeffe okeeffe
-CSucbdali dali
-CSucbdegas degas
-# CSucbear ear
-CSucbernie ernie
-CSucbesvax esvax
-CSucbic ic ucbic-ec ic-ec cad-b cad-ic
-CSucbicw icw ucbicw-ec icw-ec cad-c cad-icw
-CSucbingres ingres
-CSucbkim kim
-CSucbmatisse matisse
-CSucbmedea medea
-CSucbmerlin merlin
-CSucbmiro miro
-CSucbmonet monet
-CSucboz oz
-CSucbvax
-CSucbweyl weyl
 
-# known top-level domains
-CTLOCAL ARPA UUCP BITNET CC
+# Mock top-level domain names.  These name designate a transport mechanism
+# and appear internally only, set in S3, used in S0, and removed in S4 and
+# (possibly) the ruleset for the particular mailer.  
+
+CTUUCP
+
+# Relay host.  Used at the end of S0 as the general depository for 
+# addresses which didn't resolve locally.  
+
+DRrelay
+
+#
+#  End Local configuration options
+#
+############################################################
 
 ############################################################
 #
 #	General configuration information
 #
-#	This information is basically just "boiler-plate"; it must be
-#	there, but is essentially constant.
-#
-#	Information in this file should be independent of location --
-#	i.e., although there are some policy decisions made, they are
-#	not specific to Berkeley per se.
-#
-#		@(#)base.m4	4.3		8/30/83
-#
 ############################################################
 
-#	@(#)version.m4	4.7		8/31/83
-
-DV4.7
-
+DVsmail2.5/03-18-17
 
 ##########################
-###   Special macros   ###
+#     Special macros     #
 ##########################
 
+# official hostname
+Dj$w.$D
 # my name
 DnMAILER-DAEMON
 # UNIX header format
@@ -90,11 +80,9 @@ Dq$g$?x ($x)$.
 # SMTP login message
 De$j Sendmail $v/$V ready at $b
 
-# forwarding host -- redefine this if you can't talk to the relay directly
-DF$R
 
 ###################
-###   Options   ###
+#     Options     #
 ###################
 
 # location of alias file
@@ -128,10 +116,10 @@ OtPST,PDT
 # default UID
 Ou1
 # wizard's password
-OWa/FjIfuGKXyc2
+OWvoidpasswords
 
 ###############################
-###   Message precedences   ###
+#     Message precedences     #
 ###############################
 
 Pfirst-class=0
@@ -139,21 +127,21 @@ Pspecial-delivery=100
 Pjunk=-100
 
 #########################
-###   Trusted users   ###
+#     Trusted users     #
 #########################
 
 Troot
 Tdaemon
 Tuucp
-Teric
 Tnetwork
 
 #############################
-###   Format of headers   ###
+#     Format of headers     #
 #############################
 
-H?P?Return-Path: <$g>
-HReceived: $?sfrom $s $.by $j ($v/$V)
+#H?P?Return-Path: <$g>
+HReceived: $?sfrom $s 
+	$.by $j ($v/$V)
 	id $i; $b
 H?D?Resent-Date: $a
 H?D?Date: $a
@@ -166,138 +154,54 @@ HSubject:
 H?M?Resent-Message-Id: <$t.$i@$j>
 H?M?Message-Id: <$t.$i@$j>
 
-###########################
-###   Rewriting rules   ###
-###########################
+############################################################
+#
+#		REWRITING RULES
+#
 
-
-################################
-#  Sender Field Pre-rewriting  #
-################################
-S1
-#R$*<$*>$*		$1$2$3				defocus
-
-###################################
-#  Recipient Field Pre-rewriting  #
-###################################
-S2
-#R$*<$*>$*		$1$2$3				defocus
-
-#################################
-#  Final Output Post-rewriting  #
-#################################
-S4
-
-R@			$@				handle <> error addr
-
-# externalize local domain info
-R$*<$*LOCAL>$*		$1<$2$D>$3			change local info
-R$*<$+>$*		$1$2$3				defocus
-R@$+:$+:$+		$@@$1,$2:$3			<route-addr> canonical
-
-# UUCP must always be presented in old form
-R$+@$-.UUCP		$2!$1				u@h.UUCP => h!u
-
-# delete duplicate local names -- mostly for arpaproto.mc
-R$+%$=w@$=w		$1@$3				u%UCB@UCB => u@UCB
-R$+%$=w@$=w.ARPA	$1@$3.ARPA			u%UCB@UCB => u@UCB
 
 ###########################
+#			  #
 #  Name Canonicalization  #
+#			  #
 ###########################
 S3
 
-# handle "from:<>" special case
-R<>			$@@				turn into magic token
-
 # basic textual canonicalization
+R<>			$@@				turn into magic token
 R$*<$+>$*		$2				basic RFC821/822 parsing
 R$+ at $+		$1@$2				"at" -> "@" for RFC 822
 R$*<$*>$*		$1$2$3				in case recursive
 
-# make sure <@a,@b,@c:user@d> syntax is easy to parse -- undone later
+# handle route-addr <@a,@b,@c:user@d> 
 R@$+,$+			@$1:$2				change all "," to ":"
-
-# localize and dispose of domain-based addresses
-R@$+:$+			$@$>6<@$1>:$2			handle <route-addr>
-
-# more miscellaneous cleanup
-R$+			$:$>8$1				host dependent cleanup
+R@$+:$+			$@<@$1>:$2			handle <route-addr>
 R$+:$*;@$+		$@$1:$2;@$3			list syntax
+
+# Rewrite address into a domain-based address.  Any special mock domain names 
+# (like UUCP) should be defined on the CT line and removed (if necessary) 
+# in S4.  You can use them in S0 for designated transport mechanisms.
+
+# Delimiters with precedence over @.  Add yours here.
+
+# The @ delimiter.  Leave this alone.
 R$+@$+			$:$1<@$2>			focus on domain
 R$+<$+@$+>		$1$2<@$3>			move gaze right
-R$+<@$+>		$@$>6$1<@$2>			already canonical
+R$+<@$+>		$@$1<@$2>			already canonical
 
-# convert old-style addresses to a domain-based address
-R$+%$+			$@$>6$1<@$2>			user%host
-R$-:$+			$@$>6$2<@$1>			host:user
-R$-.$+			$@$>6$2<@$1>			host.user
+# Delimiters with precedence below @.  Add yours here.
 R$+^$+			$1!$2				convert ^ to !
-R$-!$+			$@$>6$2<@$1.UUCP>		resolve uucp names
-R$-=$+			$@$>6$2<@$1.BITNET>		resolve bitnet names
+R$-!$+			$@$2<@$1.UUCP>			resolve uucp names
+R$+.!$+			$@$2<@$1>			domain.!host
+R$+!$+			$@$2<@$1>			domain!host
 
-
-#######################
-#   Rewriting rules   #
-#######################
-
-##### special local conversions
-S6
-R$*<@$*$=D>$*		$1<@$2LOCAL>$4			convert local domain
-R$*<@$*$=D.ARPA>$*	$1<@$2LOCAL>$4
-R$+%$+<@LOCAL>		$1<@$2.LOCAL>			hack for % syntax
-R$*<@$+.$=T.$=T>$*	$1<@$2.$3>$5			make UUCP top level
-R$*<@$+.$=T.$=T>$*	$1<@$2.$3>$5			make UUCP top level
-R$*<@$*$=C.$=T>$*	$1<@$2$3>$5			adjust CC hosts (ucbvax)
-R$*<@$*$=C>$*		$1<@$2$3.CC>$4			adjust CC hosts (ucbvax)
+# % is a low precedence @.
+R$*%$*			$@$>3$1@$2			%->@ and retry
 
 ############################################################
-############################################################
-#####
-#####		Local and Program Mailer specification
-#####
-#####		@(#)localm.m4	4.1		7/25/83
-#####
-############################################################
-############################################################
-
-Mlocal,	P=/bin/mail, F=rlsDFMmn, S=10, R=20, A=mail -d $u
-Mprog,	P=/bin/sh,   F=lsDFMe,   S=10, R=20, A=sh -c $u
-
-S10
-R@			MAILER-DAEMON			errors to mailer-daemon
-
-############################################################
-############################################################
-#####
-#####		Ethernet Mailer specification
-#####
-#####		@(#)etherm.m4	4.1		7/25/83
-#####
-############################################################
-############################################################
-
-Mether,	P=[IPC], F=msDFMueCX, S=11, R=21, A=IPC $h
-
-S11
-R$*<@$+>$*		$@$1<@$2>$3			already ok
-R$+			$@$1<@$w>			tack on our hostname
-
-S21
-
-
-
-############################################################
-############################################################
-#####
-#####		RULESET ZERO PREAMBLE
-#####
-#####	The beginning of ruleset zero is constant through all
-#####	configurations.
-#####
-#####		@(#)zerobase.m4	4.1		7/25/83
-#####
-############################################################
+#
+#    		RULESET ZERO PREAMBLE
+#
 ############################################################
 
 S0
@@ -308,114 +212,107 @@ R$+			$:$>3$1				make canonical
 
 # handle special cases.....
 R@			$#local$:MAILER-DAEMON		handle <> form
-R$*<@[$+]>$*		$#tcp$@[$2]$:$1@[$2]$3		numeric internet spec
+R$*<@[$+]>$*		$#ether$@[$2]$:$1@[$2]$3	numeric internet spec
 
-# arrange for local names to be fully qualified
-R$*<$*$=S>$*		$1<$2$3.LOCAL>$4		user@etherhost
-R$*<$*$=Z>$*		$1<$2$3.LOCAL>$4		user@berkhost
-R$*<$+.ARPA.LOCAL>$*	$1<$2.ARPA>$3			because ARPA is a host
-
-# now delete the local info
-R$*<$*$=w.LOCAL>$*	$1<$2>$4			thishost.LOCAL
-R$*<$*$=w.ARPA>$*	$1<$2>$4			thishost.ARPA
-R$*<$*$=w.UUCP>$*	$1<$2>$4			thishost.UUCP
-R$*<$*$=w>$*		$1<$2>$4			thishost
+# strip local stuff
+R$*<@$-.$w.$D>$*	$1<@$2>$3			thishost.mydom
+#R$*<@$-.$D>$*	$1<@$2>$3			mydom
+R$*<@$-.$w.$=D>$*	$1<@$2>$4			thishost.anydom
+R$*<@$-.$w.$A>$*	$1<@$2>$3			thishost.anotherdom
+R$*<@$-.$A>$*		$1<@$2>$3			anotherdom
+R$*<@$-.$w.$=T>$*	$1<@$2>$4			thishost.mockdom
+#R$*<$*$w>$*	$1<$2>$3			thishost
 R$*<$*.>$*		$1<$2>$3			drop trailing dot
-R<@>:$*			$@$>0$1				retry after route strip
-R$*<@>			$@$>0$1				strip null trash & retry
-
-# forward around hosts with communication problems
-R$*<@$=F.LOCAL>$*	$#ether$@$F$:$1<@$2.LOCAL>$3	reroute message
-
-##################################
-#  End of ruleset zero preamble  #
-##################################
+R<@>:$+			$@$>0$1				strip null route, retry
+R$+<@>			$@$>0$1				strip null addr, retry
 
 
-################################################
-###  Machine dependent part of ruleset zero  ###
-################################################
+###############################################
+#    Machine dependent part of ruleset zero   #
+###############################################
 
-# resolve names that we can handle locally
-R<@$=W.UUCP>$+		$#uucp$@$1$:$2			@host.UUCP: ...
-R$+<@$=W.UUCP>		$#uucp$@$2$:$1			user@host.UUCP
+# Preemption: for a host on a known link turn the domain spec into a
+# mock domain indicating the link.  One set of these rules for each of 
+# the F classes listed in the local configuration options.
 
-# remaining names must be local
-R$+			$#local$:$1			everything else
+# Designated delivery: use the indicated transport mechanism.  One of
+# these rules for each of the mock domains defined in $=T.  You can
+# remove these if you just want general disposition.  HINTS.
 
-############################################################
-############################################################
-#####
-#####		UUCP Mailer specification
-#####
-#####		@(#)uucpm.m4	4.2		8/30/83
-#####
-############################################################
-############################################################
+# Designated delivery:
+R$*<@$=U.UUCP>$*		$#uux$@$2$:$1$3			known uucphost
 
-############################################################
-############################################################
-#####
-#####		Provide Backward Compatibility
-#####
-#####		@(#)compat.m4	4.2		8/30/83
-#####
-############################################################
-############################################################
+# throw out mock domain name now
+R$*<$*.$=T>$*		$1<$2>$4
 
+# General disposition of remote mail (comment out all but one).  You
+# might add to this list, if you have other "smarter" mailers.  HINTS.
 
+R$*<@$->:$+		$#uux$@$2$:$1$3			forward to $2
+R$*<@$*>$*		$#uux$@$2$:$1$3			hand to uucp
+#R$*<@$*>$*		$#uux$@$R$:$1@$2$3		hand to uucp relay
+#R$*<@$*>$*		$#ether$@$R$:$1@$2$3		hand to ether relay
+#R$*<$*>$*		$#error$:unknown address $1$2$3	don't hand anywhere
+
+# local delivery
+R$+			$#local$:$1			user
 
 ############################################################
-############################################################
-#####
-#####		Berknet Host List
-#####
-#####		@(#)berkhosts.m4	4.2		8/6/83
-#####
-############################################################
+#
+# 		Local and Program Mailer specification
+#
 ############################################################
 
-# A-H, Q, and S are in the computer center domain
-CZI Ing70 ucberl70 erl70
-CZJ IngVAX Ingres ucbingres
-CZK ucbvax vax
-CZM medea ucbmedea image
-CZN Kim ucbkim
-CZO ESVAX ucbesvax
-CZR ARPAVAX arpa ucbarpa
-CZT MathStat ucbmathstat
-CZV CSVAX Ernie ucbernie
-CZX onyx ucbonyx
-CZZ EECS40 EARVAX ucbear ear
+Mlocal, P=/bin/mail, F=rlsDFMmn, S=10, R=20, A=mail -d $u
+Mprog,	P=/bin/sh,   F=lsDFMe,   S=10, R=20, A=sh -c $u
 
+S10
+R@			MAILER-DAEMON	errors to mailer-daemon
+R$+<@$+.$j>$*		$1<@$j>$3	hide anydom.$j under $j
 
-#####################################################
-#  General code to convert back to old style names  #
-#####################################################
-S5
+S20
 
-R$+<@$-.LOCAL>		$2:$1				u@h.LOCAL => h:u
-R$+<@$-.CC>		$2:$1				u@h.CC => h:u
-R$+<@$=Z>		$@$2:$1				u@bhost => h:u
-R$+<@$=C>		$@$2:$1				u@cchost => h:u
-R$+<@$-.UUCP>		$2!$1				u@host.UUCP => host!u
-R$+@$+.ARPA		$1@$2				u@host.ARPA => u@host
+############################################################
+#
+#    		UUCP Mailer specification
+#
+############################################################
 
+Muux,	P=/bin/smail, F=sDFMhum, S=14, R=24, M=100000,
+	A=smail -vH$j $h!$u
 
-Muucp,	P=/usr/bin/uux, F=sDFMhuU, S=13, R=23, M=100000,
-	A=uux - -r $h!rmail ($u)
+S14
+R$*<@$+>$*		$@$1<@$2>$3		already ok
+R$+<@$+.$j>$*		$1<@$j>$3		hide anydom.$j under $j
+R$+			$@$1<@$j>		add our full address
 
-S13
-R$+			$:$>5$1				convert to old style
-R$=w!$+			$2				strip local name
-R$*<@$=S>$*		$1<@$2.Berkeley.ARPA>$3		resolve abbreviations
-R$*<@$=Z>$*		$1<@$2.Berkeley.ARPA>$3		resolve abbreviations
-R$*<@$->$*		$1<@$2.ARPA>$3			resolve abbreviations
-R$+			$:$U!$1				stick on our host name
-R$=w!$=R:$+		$:$1!$3				ucbvax!ucbvax:xxx
+S24
 
-S23
-R$+			$:$>5$1				convert to old style
-R$*<@$=S>$*		$1<@$2.Berkeley.ARPA>$3		resolve abbreviations
-R$*<@$=Z>$*		$1<@$2.Berkeley.ARPA>$3		resolve abbreviations
-R$*<@$->$*		$1<@$2.ARPA>$3			resolve abbreviations
+############################################################
+#
+#    		SMTP ethernet mailer
+#
+############################################################
+
+Mether,	P=[IPC], F=msDFMuCXP, S=11, R=21, A=IPC $h
+
+S11
+R$*<@$+>$*		$@$1<@$2>$3		already ok
+R$+			$@$1<@$w>		add our hostname
+
+S21
+
+#################################
+#  Final Output Post-rewriting  #
+#################################
+
+# This rewrites the internal $=T mock domains into their external form.
+# The default is to replace the mock domain name with $D.
+# The last two lines are stock.
+
+S4
+R@			$@				handle <> error addr
+#R$+<@$-.UUCP>		$2!$1				u@host.UUCP => host!u
+R$*<$*$=T>$*		$:$1<$2$D>$4			change local info
+R$*<$+>$*		$1$2$3				defocus
+R@$+:$+:$+		@$1,$2:$3			<route-addr> canonical

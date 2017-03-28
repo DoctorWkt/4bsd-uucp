@@ -14,13 +14,16 @@ echo "setenv EDITOR /usr/ucb/vi" >> /.cshrc
 
 # Fix up the L.sys ownership
 cd /usr/lib/uucp
-chown uucp.daemon L.sys; chmod 400 L-devices
+chown uucp.daemon *; chmod 400 L-devices
 
 # Create spool directories for our system
 cd /usr/spool/uucp
 for i in D."$shortname"X D.$shortname
 do mkdir $i; chown uucp.daemon $i; chmod 755 $i
 done
+
+# Build the paths to the remote uucp sites that we know
+/usr/lib/uucp/mkpaths
 
 # Set up our name for news
 cat /etc/hostname > /usr/lib/news/whoami
