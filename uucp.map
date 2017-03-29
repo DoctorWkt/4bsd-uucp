@@ -12,7 +12,7 @@
 #W      dsc@seismo.CSS.GOV (David S. Comay); Tue Apr  7 10:20:25 EDT 1992
 #I	Warren Toomey (seismo!wkt); minnie.tuhs.org:5500
 #
-seismo  cmcl2(DIRECT), philabs(DIRECT-10), mcvax(DIRECT)
+seismo  cmcl2(DIRECT), philabs(DIRECT-10), mcvax(DIRECT), allegra(DIRECT)
 
 #N	decvax, decvax.dec.com
 #S	Vax 8300; Ultrix 32 V2.2
@@ -29,7 +29,7 @@ seismo  cmcl2(DIRECT), philabs(DIRECT-10), mcvax(DIRECT)
 #R	decvax has moved to a new location - an update is expected soon... -jj
 #I	Warren Toomey (decvax!wkt); simh.tuhs.org:5000
 #
-decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT)
+decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT), allegra(DIRECT)
 
 #N	ucbvax
 #S	DEC VAX-11/750; 4.3 BSD UNIX
@@ -274,3 +274,8 @@ think	ames(DIRECT)
 #N	liable
 #I	Steven M Jones; need host:port number
 liable	think(DIRECT)
+
+#N	allegra
+#I	Grant Taylor; allegra.tnetconsulting.net:540
+#
+allegra decvax(DIRECT), seismo(DIRECT)
