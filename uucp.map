@@ -279,3 +279,7 @@ liable	think(DIRECT)
 #I	Grant Taylor; allegra.tnetconsulting.net:540
 #
 allegra decvax(DIRECT), seismo(DIRECT)
+
+#N	nova
+#I	John Floren (lanl!jff)
+nova	decvax(DIRECT)
