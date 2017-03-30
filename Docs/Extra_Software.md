@@ -2,7 +2,7 @@
 
 *(this comes from Bill Pechter)*
 
-I set up an [ftp://lakewoodmicro.com/pub](anonymous ftp site) on a
+I set up an [anonymous ftp site](ftp://lakewoodmicro.com/pub) on a
 Digital Ocean droplet running
 FreeBSD. I figured that's a historic way of distributing historic
 software.  I'm working on getting more available.
