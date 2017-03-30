@@ -3,8 +3,8 @@
 While the goal of this project is to build a retro-simulation of the uucp
 network as it stood in the mid-1980s (with dialup lines), it turns out that
 the transfer speeds bewteen sites is very low. One reason is that the 'g'
-protocol maxes out at around 9,600 bps, according to
-[http://minnie.tuhs.org/cgi-bin/utree.pl?file=4.3BSD/usr/src/usr.bin/uucp/README.TCP](this documentation).
+protocol maxes out at around 9,600 bps, according to this documentation:
+<http://minnie.tuhs.org/cgi-bin/utree.pl?file=4.3BSD/usr/src/usr.bin/uucp/README.TCP>
 
 Therefore, while we still want to have sites "dialling" other sites
 directly, we can do this by running the 4.3BSD uucp links over TCP.
@@ -25,7 +25,6 @@ Edit the SimH .ini files for both. Change the "attach xu nat" line to say:
 
 This forwards the 4.3BSD TCP port 540 out to be visible as port 5400 on the
 host. I'm using 5400 not 540 so I don't have to run SimH as root.
-
 Restart both *site5* and *site6* in SimH. Go into `/dev` and make some ptys:
 
 ```
@@ -33,7 +32,7 @@ Restart both *site5* and *site6* in SimH. Go into `/dev` and make some ptys:
   sh MAKEDEV pty1
 ```
 
-Edit `/etc/inetd.conf` and uncomment the uucpd line:
+Edit `/etc/inetd.conf` and uncomment the *uucpd* line:
 
 ```
   # Run as user "uucp" if you don't want uucpd's wtmp entries.
