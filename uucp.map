@@ -29,7 +29,7 @@ seismo  cmcl2(DIRECT), philabs(DIRECT-10), mcvax(DIRECT), allegra(DIRECT)
 #R	decvax has moved to a new location - an update is expected soon... -jj
 #I	Warren Toomey (decvax!wkt); simh.tuhs.org:5000
 #
-decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT), allegra(DIRECT)
+decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT), allegra(DIRECT), tektronix(DIRECT), munnari(DIRECT), nova(DIRECT)
 
 #N	ucbvax
 #S	DEC VAX-11/750; 4.3 BSD UNIX
@@ -44,7 +44,7 @@ decvax  ihnp4(DIRECT), philabs(DIRECT-10), ucbvax(DIRECT), mcvax(DIRECT), allegr
 #W	hplabs!fowler (Greg Fowler); Mon Jul 21 15:20:57 PDT 1986
 #I	Cory Smelosky; sj.gewt.net:5000
 #
-ucbvax	decvax(DIRECT)
+ucbvax	decvax(DIRECT), decwrl(DIRECT), zilog(DIRECT)
 
 #N        ihnp4
 #S        AT&T 3B20S, UNIX SV_R2p
@@ -70,7 +70,7 @@ ucbvax	decvax(DIRECT)
 #W        861022 ihnp4!action
 #I	  Warren Toomey (ihnp4!wkt); minnie.tuhs.org:5000
 #
-ihnp4	decvax(DIRECT), cbosgd(DIRECT)
+ihnp4	decvax(DIRECT), cbosgd(DIRECT), tektronix(DIRECT)
 
 #N	.philips.com, philabs
 #F	uunet.uu.net
@@ -102,7 +102,7 @@ philabs decvax(DIRECT-10), mcvax(DIRECT), seismo(DIRECT-10)
 #W      850531 kre, 851103 rsk
 #I	Warren Toomey (munnari!wkt); 192.168.1.1:5500
 #
-munnari decvax(DIRECT)
+munnari decvax(DIRECT), gara(DIRECT)
 
 #N	cmcl2
 #S	VAX 11/780, 4.3 BSD
@@ -144,7 +144,7 @@ lanl	cmcl2(DIRECT)
 #W	mcvax!piet 850103
 #I	Jacob Goense; mcvax.eunet.it:20333
 #
-mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT), i2unix(DIRECT)
+mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT), i2unix(DIRECT), unido(DIRECT)
 
 #N	ukc
 #S	VAX11/780, 4.2BSD
@@ -204,7 +204,7 @@ zilog   ucbvax(HOURLY/6)
 #W        decwrl!johnsson (Richard Johnsson); Fri Oct 25 07:33:20 PDT 1985
 #I	  Cory Smelosky; sj.gewt.net:5000
 #
-decwrl	  ucbvax(DIRECT)
+decwrl	  ucbvax(DIRECT), ames(DIRECT)
 
 #N        gara.une.oz.au
 #S        Gould NP1-230; UTX 3.1u01
@@ -253,7 +253,7 @@ unido	mcvax(DIRECT)
 
 #N	ames
 #I	Steven M Jones; need host:port number
-ames	decwrl(DIRECT)
+ames	decwrl(DIRECT), think(DIRECT)
 
 #N	think
 #S	DEC VAX-11/750; 4.3 BSD UNIX
@@ -269,7 +269,7 @@ ames	decwrl(DIRECT)
 #W	think!bruce (Bruce Nemnich); Fri Jul  3 14:04:49 EDT 1987
 #I	Steven M Jones; need host:port number
 #
-think	ames(DIRECT)
+think	ames(DIRECT), liable(DIRECT)
 
 #N	liable
 #I	Steven M Jones; need host:port number

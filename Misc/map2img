@@ -46,6 +46,10 @@ foreach my $src (keys(%Conn)) {
   foreach my $dst (keys(%{$Conn{$src}})) {
       next if (!defined($Node{$dst}));
       print($OUT "  \"$src\" -- \"$dst\"\n");
+
+      # Warn if no reverse link, we need it for pathalias
+      print(STDERR "pathalias: need $dst\t$src(DIRECT)\n")
+      		if (!defined($Conn{$dst}{$src}));
   }
 }
 
