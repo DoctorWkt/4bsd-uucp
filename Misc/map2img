@@ -2,6 +2,10 @@
 use strict;
 use warnings;
 use Data::Dumper;
+use Getopt::Long;
+
+my $epsilon=1.0;
+GetOptions("e=f" => \$epsilon) || die("Usage: $0 [-e num] [input_mapfile]\n");
 
 # Hash arrays of known sites and their connections
 my %Node;
@@ -10,7 +14,7 @@ my %Conn;
 # Start the dot output
 open(my $OUT, "|-", "dot -Tpng -o uucp.png") || die("dot pipe failed: $!\n");
 print($OUT "strict graph {\n");
-print($OUT "  epsilon=4.0;\n");
+print($OUT "  epsilon=$epsilon;\n");
 
 my $IN;
 if (@ARGV == 1) {
