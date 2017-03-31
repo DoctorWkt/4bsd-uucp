@@ -144,7 +144,7 @@ lanl	cmcl2(DIRECT)
 #W	mcvax!piet 850103
 #I	Jacob Goense; mcvax.eunet.it:20333
 #
-mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT), i2unix(DIRECT), unido(DIRECT)
+mcvax	ukc(DIRECT), decvax(DIRECT), philabs(DIRECT), seismo(DIRECT), i2unix(DIRECT), unido(DIRECT), moskvax(DIRECT)
 
 #N	ukc
 #S	VAX11/780, 4.2BSD
@@ -283,3 +283,11 @@ allegra decvax(DIRECT), seismo(DIRECT)
 #N	nova
 #I	John Floren (lanl!jff)
 nova	decvax(DIRECT)
+
+#N	moskvax
+#I	Kurt H Maier; 4.3bsd.com:5000
+moskvax	mcvax(DIRECT), kremvax(DIRECT)
+
+#N	kremvax
+#I	Kurt H Maier; 4.3bsd.com:6000
+kremvax	moskvax(DIRECT)
