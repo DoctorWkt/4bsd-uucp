@@ -87,12 +87,12 @@ Connects-to: seismo, lanl
 
 Site: moskvax
 Contact: Kurt H Maier
-TCP Hostname/port: 4.3bsd.com:5000
+TCP Hostname/port: 4.3bsd.com:6000
 Connects-to: mcvax kremvax
 
 Site: kremvax
 Contact: Kurt H Maier
-TCP Hostname/port: 4.3bsd.com:6000
+TCP Hostname/port: 4.3bsd.com:5000
 Connects-to: moskvax
 
 Site: columbia
