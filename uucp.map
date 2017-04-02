@@ -102,7 +102,7 @@ philabs decvax(DIRECT-10), mcvax(DIRECT), seismo(DIRECT-10)
 #W      850531 kre, 851103 rsk
 #I	Warren Toomey (munnari!wkt); 192.168.1.1:5500
 #
-munnari decvax(DIRECT), gara(DIRECT)
+munnari decvax(DIRECT), gara(DIRECT), basser(DIRECT)
 
 #N	cmcl2
 #S	VAX 11/780, 4.3 BSD
@@ -291,3 +291,18 @@ moskvax	mcvax(DIRECT), kremvax(DIRECT)
 #N	kremvax
 #I	Kurt H Maier; 4.3bsd.com:6000
 kremvax	moskvax(DIRECT)
+
+#N        basser
+#S        
+#O        University of Sydney, Basser Dept. of Computer Science
+#C        Bob Kummerfeld
+#E        mulga!bob.basser
+#T        +61-2-692-3766
+#P        F09, NSW 2006, Australia
+#L        33 52 S / 151 13 E city
+#U        munnari elecvax wacsvax uqcspe physiol metro ipso fawnray
+#R        ACS Backbone host
+#W        851103 rsk
+#I	  Warren Toomey; At home behind NAT
+#
+basser munnari(DIRECT)
