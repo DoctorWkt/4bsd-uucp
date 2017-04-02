@@ -292,7 +292,6 @@ moskvax	mcvax(DIRECT), kremvax(DIRECT)
 #I	Kurt H Maier; 4.3bsd.com:6000
 kremvax	moskvax(DIRECT)
 
-<<<<<<< HEAD
 #N        basser
 #S        
 #O        University of Sydney, Basser Dept. of Computer Science
@@ -307,7 +306,7 @@ kremvax	moskvax(DIRECT)
 #I	  Warren Toomey; At home behind NAT
 #
 basser munnari(DIRECT)
-=======
+
 #N        pirates
 #S        Solbourne 4/602; OS/MP 4.1A.1
 #O        Department of Academic Computing, Armstrong State College
@@ -321,4 +320,3 @@ basser munnari(DIRECT)
 #I	  James B DiGriz; pirates.dragonsweb.org:542
 #
 pirates	ihnp4(DIRECT)
->>>>>>> 4288f3bf8456034ded022768d3c64c027a96af30
