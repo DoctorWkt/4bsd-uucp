@@ -319,4 +319,8 @@ basser munnari(DIRECT)
 #W        pirates!ted (Ted Schmidt); Mon Aug  3 09:59:25 EDT 1992
 #I	  James B DiGriz; pirates.dragonsweb.org:542
 #
-pirates	ihnp4(DIRECT)
+pirates	ihnp4(DIRECT), pemvax(DIRECT)
+
+#N      pemvax
+#I      James B DiGriz (pirates\!jbdigriz); pemvax.dragonsweb.org:542
+pemvax  pirates(DIRECT)
