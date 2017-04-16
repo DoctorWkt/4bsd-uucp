@@ -176,7 +176,21 @@ ukc	mcvax(DIRECT)
 #
 #i2unix = italy.eu.net
 #
-i2unix	mcvax(DIRECT)
+i2unix	mcvax(DIRECT), iconet(DIRECT)
+
+#N      iconet
+#S      PDP11/44 2.9BSD
+#O      I.C. OLIVETTI
+#C      paolo campagnola
+#E      iconet!paul
+#T      +39 125 522402
+#P      Via Jervis 7, I-10015 Ivrea,Italy
+#L      45.03N 7.40E
+#R
+#U
+#W      i2unix!roby 860603
+#
+iconet  i2unix(DIRECT)
 
 #N      zilog
 #S      VAX 11/780, 4.3 BSD

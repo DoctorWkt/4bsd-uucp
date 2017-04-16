@@ -3,10 +3,15 @@ Contact: Jacob Goense
 TCP Hostname/port: i2unix.eunet.it:2530
 Connects-to: mcvax
 
+Site: iconet
+Contact: Jacob Goense
+TCP hostname/port: iconet.oldbsd.org:2403
+Connects-to: i2unix
+
 Site: mcvax
 Contact: Jacob Goense
-tCP Hostname/port: mcvax.eunet.it:20333
-Connects-to: ukc, decvax, philabs, seismo, i2unix
+TCP Hostname/port: mcvax.eunet.it:20333
+Connects-to: ukc, decvax, philabs, seismo, i2unix, moskvax, unido
 
 Site: munnari
 Contact: Warren Toomey
