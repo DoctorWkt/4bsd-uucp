@@ -190,3 +190,8 @@ Site: legacy
 Contact: Bill Gunshannon
 TCP Hostname/port: at home behind NAT
 Connects-to: probably philabs
+
+Site: nmtvax
+Contact: Alan Perry
+TCP Hostname/port: no idea yet
+Connects-to: lanl
